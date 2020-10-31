@@ -13,5 +13,10 @@
     },
     "plugins": ["hbs"],
     "rules": {
+        "no-plusplus": "off",
+        "max-len": [
+            "warn",
+            140
+        ]
     }
 }

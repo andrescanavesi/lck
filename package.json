@@ -10,6 +10,7 @@
   "dependencies": {
     "apicache": "^1.5.3",
     "cloudinary": "^1.23.0",
+    "compression": "^1.7.4",
     "cookie-parser": "~1.4.4",
     "debug": "^4.2.0",
     "dotenv": "^8.2.0",
@@ -20,6 +21,7 @@
     "flexsearch": "^0.6.32",
     "hbs": "^4.1.1",
     "http-errors": "^1.8.0",
+    "js2xmlparser": "^4.0.1",
     "log4js": "^6.2.1",
     "moment": "^2.24.0",
     "morgan": "^1.10.0",
