@@ -10,7 +10,7 @@ const daoRecipies = require('../daos/dao_recipes');
  */
 router.get('/', async (req, res, next) => {
   try {
-    const baseUrl = process.env.RESOPIA_BASE_URL;
+    const baseUrl = process.env.LCK_BASE_URL;
     const recipes = await daoRecipies.findAll();
     const collection = [];
     let today = moment();
@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
     rootUrl.priority = '1.0';
     rootUrl['image:image'] = {
       'image:loc': process.env.LCK_DEFAULT_IMAGE_URL,
-      'image:caption': 'resopia.com. Recetas de cocina',
+      'image:caption': 'lacocinadekesman.com. Recetas de cocina',
     };
     collection.push(rootUrl);
 
