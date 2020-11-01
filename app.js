@@ -1,8 +1,10 @@
 const envs = require('dotenv').config();
 
 if (envs.error) {
+  console.error(`error loading env vars. ${envs.error}`);
   throw envs.error;
 }
+console.info('env vars loaded');
 
 const createError = require('http-errors');
 const express = require('express');
@@ -19,12 +21,12 @@ const utils = require('./utils/utils');
 const log = new Logger('app');
 
 const indexRouter = require('./routes/index');
-const sitemapRouter = require('./routes/sitemap');
-const adminRouter = require('./routes/admin');
+// const sitemapRouter = require('./routes/sitemap');
+// const adminRouter = require('./routes/admin');
 
 const app = express();
-app.use(compression());
-app.use(useragent.express());
+// app.use(compression());
+// app.use(useragent.express());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,8 +48,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/', indexRouter);
-app.use('/admin', adminRouter);
-app.use('/sitemap.xml', sitemapRouter);
+// app.use('/admin', adminRouter);
+// app.use('/sitemap.xml', sitemapRouter);
 
 // // catch 404 and forward to error handler
 // app.use((req, res, next) => {

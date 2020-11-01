@@ -11,9 +11,9 @@ router.get('/', (req, res, next) => {
   }
 });
 
-router.get('/receta/:title', (req, res, next) => {
+router.get('/receta/:id/:title_seo', (req, res, next) => {
   try {
-    res.render('index', { title: 'Express' });
+    res.render('recipe', { title: 'Express' });
   } catch (e) {
     next(e);
   }
