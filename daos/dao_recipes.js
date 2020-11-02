@@ -178,23 +178,9 @@ module.exports.findById = async function (id, ignoreActive, witchCache = true) {
   const result = await dbHelper.query(query, bindings, witchCache);
   if (result.rows.length > 0) {
     const recipe = convertRecipe(result.rows[0]);
-    const recipeTags = await daoTags.findByRecipe(recipe.id);
-    recipe.tags = recipeTags;
-    recipe.tags_ids_csv = '';
-    recipe.tags_names_csv = '';
-    for (let index = 0; index < recipeTags.length; index++) {
-      const element = recipeTags[index];
-      recipe.tags_ids_csv += element.id;
-      recipe.tags_names_csv += element.name;
-      if (index < recipeTags.length - 1) {
-        recipe.tags_ids_csv += ',';
-        recipe.tags_names_csv += ',';
-      }
-    }
-
     return recipe;
   }
-  throw Error(`recipe not found by id ${id}`);
+  throw Error(`receta no encontrada ${id}`);
 };
 
 async function findByIds(ids) {
@@ -222,60 +208,72 @@ async function findByIds(ids) {
 }
 
 module.exports.create = async function (recipe) {
-  // if (!recipe.tags || recipe.tags.length === 0) {
-  //   throw new Error('Error creating the recipe. Tags are empty');
-  // }
-  // validate tags values
-  // for (let index = 0; index < recipe.tags.length; index++) {
-  //   const tagId = recipe.tags[index];
-  //   if (isNaN(tagId)) {
-  //     throw new Error(`Error creting the recipe. The tag ${tagId} is not a number`);
-  //   }
-  // }
-
   // upper case only the first letter. The resto will be lower case
   // eslint-disable-next-line no-param-reassign
   recipe.title = recipe.title.charAt(0).toUpperCase() + recipe.title.toLowerCase().slice(1);
   log.info(`Creating recipe: ${recipe.title}`);
 
   const today = moment().format('YYYY-MM-DD HH:mm:ss');
-  const query = `INSERT INTO recipes(created_at, updated_at, title, title_seo, description, 
-    ingredients, extra_ingredients_title, extra_ingredients, steps, active, 
-    featured_image_name, secondary_image_name, facebook_shares, pinterest_pins,
-    prep_time_seo, cook_time_seo,total_time_seo, prep_time,
-    cook_time, total_time, cuisine, yield, notes, youtube_video_id, tweets, aggregate_rating,rating_count,
-    images_names_csv, tags_csv)
-    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,
-      $24,$25,$26,$27,$28,$29) 
+  const query = `INSERT INTO recipes(
+    created_at, 
+    updated_at, 
+    title, 
+    title_seo, 
+    description, 
+    ingredients, 
+    extra_ingredients_title,
+    extra_ingredients, 
+    steps, active, 
+    prep_time_seo, 
+    cook_time_seo,
+    total_time_seo, 
+    prep_time,
+    cook_time, 
+    total_time, 
+    cuisine, 
+    yield, 
+    notes, 
+    youtube_video_id, 
+    aggregate_rating,
+    rating_count,
+    images_names_csv, 
+    tags_csv)
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23) 
     RETURNING id`;
   const bindings = [
-    today, today, recipe.title, recipe.title_seo, recipe.description,
-    recipe.ingredients, recipe.extra_ingredients_title, recipe.extra_ingredients, recipe.steps, recipe.active,
-    recipe.featured_image_name, recipe.secondary_image_name, recipe.facebook_shares, recipe.pinterest_pins,
-    recipe.prep_time_seo, recipe.cook_time_seo, recipe.total_time_seo, recipe.prep_time,
-    recipe.cook_time, recipe.total_time, recipe.cuisine, recipe.yield, recipe.notes,
-    recipe.youtube_video_id, recipe.tweets, recipe.aggregate_rating, recipe.rating_count,
-    recipe.images_names_csv, recipe.tags_csv,
+    today,
+    today,
+    recipe.title,
+    recipe.title_seo,
+    recipe.description,
+    recipe.ingredients,
+    recipe.extra_ingredients_title,
+    recipe.extra_ingredients,
+    recipe.steps,
+    recipe.active,
+    recipe.prep_time_seo,
+    recipe.cook_time_seo,
+    recipe.total_time_seo,
+    recipe.prep_time,
+    recipe.cook_time,
+    recipe.total_time,
+    recipe.cuisine,
+    recipe.yield,
+    recipe.notes,
+    recipe.youtube_video_id,
+    recipe.aggregate_rating,
+    recipe.rating_count,
+    recipe.images_names_csv,
+    recipe.tags_csv,
   ];
+  log.info('insert bindings', bindings);
 
   const result = await dbHelper.query(query, bindings, false);
 
   const recipeId = result.rows[0].id;
   log.info(`Recipe created: ${recipeId}`);
 
-  // // create relationship with tags
-  // const promises = [];
-  // for (let index = 0; index < recipe.tags.length; index++) {
-  //   const tagId = recipe.tags[index];
-  //   if (isNaN(tagId)) {
-  //     throw new Error(`the tag ${tagId} is not a number`);
-  //   }
-  //   promises.push(daoTags.createRecipeRelationship(recipeId, tagId));
-  // }
-
-  // await Promise.all(promises);
-
-  this.resetCache();
+  await this.resetCache();
   return recipeId;
 };
 
@@ -286,24 +284,22 @@ module.exports.update = async function (recipe) {
   log.info('updating recipe...');
   const today = moment().format('YYYY-MM-DD HH:mm:ss');
   const query = `UPDATE recipes SET ingredients=$1, steps=$2, updated_at=$3, active=$4,
-     featured_image_name=$5, extra_ingredients_title=$6, title=$7, description=$8, title_seo=$9, 
-     secondary_image_name=$10, prep_time_seo=$11, cook_time_seo=$12, total_time_seo=$13, 
-     prep_time=$14, cook_time=$15, total_time=$16, cuisine=$17, yield=$18,
-     facebook_shares=$19,pinterest_pins=$20,tweets=$21,youtube_video_id=$22,notes=$23, 
-     extra_ingredients=$24,aggregate_rating=$25,rating_count=$26,images_names_csv=$27,
-     tags_csv=$28
-       WHERE id=$29`;
+      extra_ingredients_title=$5, title=$6, description=$7, title_seo=$8, 
+      prep_time_seo=$9, cook_time_seo=$10, total_time_seo=$11, 
+     prep_time=$12, cook_time=$13, total_time=$14, cuisine=$15, yield=$16,
+     youtube_video_id=$17,notes=$18, 
+     extra_ingredients=$18,aggregate_rating=$20,rating_count=$21,images_names_csv=$22,
+     tags_csv=$23
+       WHERE id=$24`;
   const bindings = [
     recipe.ingredients,
     recipe.steps,
     today,
     recipe.active,
-    recipe.featured_image_name,
     recipe.extra_ingredients_title,
     recipe.title,
     recipe.description,
     recipe.title_seo,
-    recipe.secondary_image_name,
     recipe.prep_time_seo,
     recipe.cook_time_seo,
     recipe.total_time_seo,
@@ -312,9 +308,6 @@ module.exports.update = async function (recipe) {
     recipe.total_time,
     recipe.cuisine,
     recipe.yield,
-    recipe.facebook_shares,
-    recipe.pinterest_pins,
-    recipe.tweets,
     recipe.youtube_video_id,
     recipe.notes,
     recipe.extra_ingredients,
@@ -328,7 +321,7 @@ module.exports.update = async function (recipe) {
     // log.info(bindings);
   const result = await dbHelper.query(query, bindings, false);
   // log.info(result);
-  this.resetCache();
+  await this.resetCache();
   return result;
 };
 
@@ -349,6 +342,10 @@ module.exports.buildSearchIndex = async function () {
   // console.timeEnd('buildIndexTook');
 };
 
+module.exports.findRelatedByTags = async function (tagsCsv) {
+  // TODO
+  return [];
+};
 /**
  * @param {string} text to search
  */
@@ -373,7 +370,7 @@ module.exports.findRelated = async function (text) {
   }
 
   if (results.length < 5) {
-    log.info('not enought related recipes, result will filled up with more recipes');
+    log.info('not enough related recipes, result will filled up with more recipes');
     const moreRecipes = await findWithLimit(20);
     results = results.concat(moreRecipes);
   }
@@ -387,36 +384,6 @@ module.exports.deleteDummyData = async function () {
   log.info(result);
 };
 
-// /**
-//  * Related criteria is a full-text search over recipe's tags names
-//  * @param {object} recipe
-//  * @return {[]} array with related recipes. If not related recipes it filess up with latest recipes
-//  */
-// module.exports.findRelatedRecipes = async function (recipe) {
-//   if (this.searchIndex.length === 0) {
-//     await this.buildSearchIndex();
-//   }
-//   const phrase = recipe.tags_names_csv;
-//   log.info(`Searching related recipes to recipe ${recipe.id} with the tags: ${recipe.tags_names_csv}`);
-//   // search using flexsearch. It will return a list of IDs we used as keys during indexing
-//   const resultIds = await this.searchIndex.search({
-//     query: phrase,
-//     limit: 6,
-//   });
-//   let result = [];
-//   if (resultIds.length > 0) {
-//     result = await this.findByIds(resultIds);
-//     log.info(`related recipes found for recipe ${recipe.id}: ${result.length}`);
-//   }
-
-//   if (result.length < 5) {
-//     log.info('not enought related recipes, result will filled up with more recipes');
-//     const moreRecipes = await findWithLimit(5);
-//     result = result.concat(moreRecipes);
-//   }
-//   return result;
-// };
-
 module.exports.findRandom = async function (limit) {
   // this collection is cached, that's we take 200 records and then shuffle
   const all = await findWithLimit(200);
@@ -425,7 +392,4 @@ module.exports.findRandom = async function (limit) {
 };
 
 module.exports.findByIds = findByIds;
-module.exports.findWithKeyword = findWithKeyword;
-module.exports.findRecipesSpotlight = findRecipesSpotlight;
-module.exports.findRecipesMostVisited = findRecipesMostVisited;
 module.exports.searchIndex = searchIndex;

@@ -1,3 +1,4 @@
+const envs = require('dotenv').config();
 const chai = require('chai');
 const { describe, before, it } = require('mocha');
 const chaiHttp = require('chai-http');

@@ -7,13 +7,16 @@ const { Logger } = require('./Logger');
 const log = new Logger('db_helper');
 const queryCache = new NodeCache();
 
+let ssl = null;
 let dbConfig;
 if (process.env.NODE_ENV === 'development') {
+  if (!process.env.LCK_DATABASE_URL) throw new Error('LCK_DATABASE_URL env var was not set');
   dbConfig = parseDbUrl(process.env.LCK_DATABASE_URL);
+  ssl = { rejectUnauthorized: false };
 } else {
+  if (!process.env.DATABASE_URL) throw new Error('DATABASE_URL env var was not set');
   dbConfig = parseDbUrl(process.env.DATABASE_URL);
 }
-
 
 const pool = new Pool({
   user: dbConfig.user,
@@ -21,7 +24,7 @@ const pool = new Pool({
   database: dbConfig.database,
   password: dbConfig.password,
   port: dbConfig.port,
-  ssl: true,
+  ssl,
 });
 
 /**
