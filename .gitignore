@@ -107,3 +107,5 @@ dist
 .idea/
 
 .env
+
+test_results/

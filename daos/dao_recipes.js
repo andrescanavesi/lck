@@ -223,7 +223,8 @@ module.exports.create = async function (recipe) {
     ingredients, 
     extra_ingredients_title,
     extra_ingredients, 
-    steps, active, 
+    steps, 
+    active, 
     prep_time_seo, 
     cook_time_seo,
     total_time_seo, 
@@ -238,7 +239,7 @@ module.exports.create = async function (recipe) {
     rating_count,
     images_names_csv, 
     tags_csv)
-    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23) 
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24) 
     RETURNING id`;
   const bindings = [
     today,
@@ -288,7 +289,7 @@ module.exports.update = async function (recipe) {
       prep_time_seo=$9, cook_time_seo=$10, total_time_seo=$11, 
      prep_time=$12, cook_time=$13, total_time=$14, cuisine=$15, yield=$16,
      youtube_video_id=$17,notes=$18, 
-     extra_ingredients=$18,aggregate_rating=$20,rating_count=$21,images_names_csv=$22,
+     extra_ingredients=$19,aggregate_rating=$20,rating_count=$21,images_names_csv=$22,
      tags_csv=$23
        WHERE id=$24`;
   const bindings = [
@@ -364,7 +365,8 @@ module.exports.findRelated = async function (text) {
   log.info(`related results: ${resultIds.length}`);
   let results;
   if (resultIds.length === 0) {
-    results = await this.findRecipesSpotlight();
+    // results = await this.findRecipesSpotlight();
+    results = []; // TODO
   } else {
     results = await this.findByIds(resultIds);
   }
@@ -381,7 +383,7 @@ module.exports.findRelated = async function (text) {
 module.exports.deleteDummyData = async function () {
   const query = "DELETE FROM recipes WHERE title_seo = 'from-test'";
   const result = await dbHelper.query(query, [], false);
-  log.info(result);
+  // log.info(result);
 };
 
 module.exports.findRandom = async function (limit) {
