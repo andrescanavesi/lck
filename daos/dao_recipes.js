@@ -124,7 +124,7 @@ function convertRecipe(row) {
   return recipe;
 }
 
-async function findWithLimit(limit) {
+module.exports.findWithLimit = async function (limit) {
   log.info(`findWithLimit, limit: ${limit}`);
   const query = 'SELECT * FROM recipes WHERE active=true ORDER BY created_at DESC LIMIT $1 ';
   const bindings = [limit];
@@ -136,7 +136,7 @@ async function findWithLimit(limit) {
     recipes.push(convertRecipe(result.rows[i]));
   }
   return recipes;
-}
+};
 
 module.exports.resetCache = async function () {
   allRecipes = [];
@@ -145,7 +145,7 @@ module.exports.resetCache = async function () {
 
 module.exports.findAll = async function () {
   if (allRecipes.length === 0) {
-    allRecipes = findWithLimit(1000);
+    allRecipes = this.findWithLimit(1000);
   }
   return allRecipes;
 };

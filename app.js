@@ -21,10 +21,10 @@ const log = new Logger('app');
 
 const indexRouter = require('./routes/index');
 // const sitemapRouter = require('./routes/sitemap');
-// const adminRouter = require('./routes/admin');
+const adminRouter = require('./routes/admin');
 
 const app = express();
-// app.use(compression());
+app.use(compression());
 app.use(useragent.express());
 
 // view engine setup
@@ -47,7 +47,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/', indexRouter);
-// app.use('/admin', adminRouter);
+app.use('/admin', adminRouter);
 // app.use('/sitemap.xml', sitemapRouter);
 
 // // catch 404 and forward to error handler

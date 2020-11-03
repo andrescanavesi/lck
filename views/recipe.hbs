@@ -8,29 +8,28 @@
 					<h2 class="entry-title">{{recipe.title}}</h2>
 					<div class="metro_rating-wrapper">
 						<div class="metro_rating">
-							<i class="fa fa-star active"></i>
-							<i class="fa fa-star active"></i>
-							<i class="fa fa-star active"></i>
-							<i class="fa fa-star active"></i>
-							<i class="fa fa-star"></i>
+							<img src="/images/icons/png/star.png" alt="star" width="16" />
+							<img src="/images/icons/png/star.png" alt="star" width="16"/>
+							<img src="/images/icons/png/star.png" alt="star" width="16"/>
+							<img src="/images/icons/png/star.png" alt="star" width="16"/>
 						</div>
-						<span>4 Stars</span>
+						<span>4 Estrellas</span>
 					</div>
 
 					<div class="metro_post-single-thumb">
 						<img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/recipe/1.jpg" alt="post">
 						<div class="metro_post-date">
 							<span>25</span>
-							<span>Dec</span>
+							<span>Dic</span>
 						</div>
 					</div>
 
 					<!-- Entry Content Start -->
 					<div class="entry-content">
               <span class="metro_post-meta">
-                <a href="#"> <i class="far fa-user"></i> Michel </a>
-                <a href="blog-details.html"> <i class="far fa-knife-kitchen"></i> 5 Comments</a>
-                <a href="blog-details.html"> <i class="far fa-clock"></i> 55 minutes</a>
+                <a href="#"> <i class="far fa-user"></i> By Martín </a>
+                <a href="#"> <i class="far fa-clock"></i> 55 minutos</a>
+	            <a href="#"> <i class="far fa-clock"></i> Avanzado</a>
               </span>
 
 						<p>
@@ -45,27 +44,26 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="metro_nutritional-facts">
-									<h4>Ingredients</h4>
+									<h4>Ingredientes</h4>
 									<ul>
-										<li> 1 Cup Sifted all purpose Flour </li>
-										<li> 4 Cups Dry-roasted macadamia nuts </li>
-										<li> 4 Large eggs </li>
-										<li> 5 Cup sifted all purpose flour </li>
-										<li> 8 Cups dry-roasted macadami nuts </li>
-										<li> 5 Mineral water </li>
+										<li> 50 gramos de manteca </li>
+										<li> 1 y 1/2 taza de harina </li>
+										<li> 1 huevo </li>
+										<li> 1 cucharadita de polvo de hornear </li>
+										<li> 1 cucharadita de vainilla </li>
 									</ul>
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="metro_ingredients">
-									<h4>Steps</h4>
+									<h4>Elaboración</h4>
 									<ul>
-										<li> Calories <span>329</span> </li>
-										<li> Sugar <span>10.5g</span> </li>
-										<li> Protein <span>22.5g</span> </li>
-										<li> Fat <span>3g</span> </li>
-										<li> Carbs <span>18g</span> </li>
-										<li> Food Far <span>0.1</span> </li>
+										<li> Derretir la manteca y dejar enfriar</li>
+										<li> En un recipiente coocar el huevo, la manteca, el azucar y mezclar bien.</li>
+										<li> Colocar la vainilla</li>
+										<li> En un recipiente aparte mezclar el harina con el el polvo de hornear</li>
+										<li> Incorporar todos los ingredientes hasta formar una masa suave.</li>
+										<li> Llevar la masa a la heladera de 10 a 15 minutos.</li>
 									</ul>
 								</div>
 							</div>
@@ -84,6 +82,10 @@
 							Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
 							Ut enim ad minima veniam, quis nostruercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequat
 						</p>
+
+						<p class="text-center">
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/cKQ7pxetOIM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</p>
 					</div>
 					<!-- Entry Content End -->
 
@@ -92,7 +94,7 @@
 				<!-- Related Posts -->
 				<div class="metro_related-posts">
 
-					<h4>Related Recipes</h4>
+					<h4>Recetas relacionadas</h4>
 
 					<div class="metro_related-posts-slider">
 
@@ -104,19 +106,23 @@
 								<!-- Recipe Start -->
 								<article class="metro_post metro_recipe">
 									<div class="metro_post-thumb">
-										<a href="recipe-details.html">
+										<a href="{{this.url}}">
 											<img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/recipes/1.jpg" alt="recipe">
 										</a>
 									</div>
 									<div class="metro_post-body">
 										<div class="metro_post-desc">
-											<span class="metro_post-meta"> <a href="#"> <i class="far fa-clock"></i> 45 Minutes </a> <a href="recipe-details.html"> <i class="far fa-knife-kitchen"></i> Expert</a> </span>
-											<h5> <a href="receta/{{this.title_seo}}">
+											<span class="metro_post-meta"> <a href="{{this.url}}">
+												<i class="far fa-clock"></i> 45 Minutos </a>
+												<a href="{{this.url}}">
+													<i class="far fa-knife-kitchen"></i> Avanzado</a>
+											</span>
+											<h5> <a href="{{this.url}}">
 												{{this.title}}
 											</a> </h5>
 											<p>Cras ultricies ligula sed magna dictum porta. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
 										</div>
-										<a class="btn-link" href="recipe-details.html"> Read More <i class="fas fa-arrow-right"></i> </a>
+										<a class="btn-link" href="{{this.url}}"> Leer Más </a>
 									</div>
 								</article>
 								<!-- Recipe End -->
@@ -144,43 +150,51 @@
 							<p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Donec sollicitudin molestie malesuada. Mauris blandit aliquet elit</p>
 						</div>
 						<ul class="metro_sm">
-							<li> <a href="#"> <i class="fab fa-facebook-f"></i> </a> </li>
-							<li> <a href="#"> <i class="fab fa-twitter"></i> </a> </li>
-							<li> <a href="#"> <i class="fab fa-linkedin-in"></i> </a> </li>
-							<li> <a href="#"> <i class="fab fa-youtube"></i> </a> </li>
+							<li><a href="https://www.instagram.com/lacocinadekesman/" class="instagram1">
+								<img src="/images/icons/png/029-instagram.png" width="32"/>
+							</a></li>
+							<li><a href="https://www.facebook.com/La-Cocina-De-Kesman-1628880720697771/" class="facebook1">
+								<img src="/images/icons/png/036-facebook.png" width="32"/>
+							</a></li>
+							<li><a href="https://www.youtube.com/channel/UCWs6GwAuccOhLrryaAZd2Xw" class="youtube1">
+								<img src="/images/icons/png/001-youtube.png" width="32"/>
+							</a></li>
+							<li><a href="https://twitter.com/mkesman" class="twitter1">
+								<img src="/images/icons/png/008-twitter.png" width="32"/>
+							</a></li>
 						</ul>
 					</div>
 					<!-- About author End-->
 
 					<!-- Recent Posts Start -->
 					<div class="sidebar-widget widget-recent-posts">
-						<h5 class="widget-title">Recent Posts</h5>
+						<h5 class="widget-title">Recetas recientes</h5>
 						<article class="post">
 							<a href="blog-details.html"><img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/blog/sm/1.jpg" alt="post"></a>
 							<div class="post-content">
-								<a href="#"> Burgers </a>
-								<h6> <a href="blog-details.html">Tomato Stuffing with Cumin and Radish</a> </h6>
+								<a href="#"> Hamburguesas </a>
+								<h6> <a href="#">Praesent sapien massa</a> </h6>
 							</div>
 						</article>
 						<article class="post">
 							<a href="blog-details.html"><img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/blog/sm/2.jpg" alt="post"></a>
 							<div class="post-content">
-								<a href="#"> Pizza </a>
-								<h6> <a href="blog-details.html">Over Baked Pizza With Four Cheese</a> </h6>
+								<a href="#"> Pizzas </a>
+								<h6> <a href="blog-details.html">Onvallis a pellentesque nec,</a> </h6>
 							</div>
 						</article>
 						<article class="post">
 							<a href="blog-details.html"><img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/blog/sm/3.jpg" alt="post"></a>
 							<div class="post-content">
-								<a href="#"> Fast Food </a>
-								<h6> <a href="blog-details.html">Grilled Burgers With Tomato Paste</a> </h6>
+								<a href="#"> Burguers veganas </a>
+								<h6> <a href="#">Egestas non nisi. Donec</a> </h6>
 							</div>
 						</article>
 						<article class="post">
 							<a href="blog-details.html"><img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/blog/sm/4.jpg" alt="post"></a>
 							<div class="post-content">
-								<a href="#"> Fast Food </a>
-								<h6> <a href="blog-details.html">American Style French Fries Air Fried</a> </h6>
+								<a href="#"> Papas fritas </a>
+								<h6> <a href="#">Sollicitudin molestie malesuada</a> </h6>
 							</div>
 						</article>
 					</div>
@@ -188,35 +202,33 @@
 
 					<!-- Categories Start -->
 					<div class="sidebar-widget">
-						<h5 class="widget-title"> Post Categories </h5>
+						<h5 class="widget-title"> Recetas por Categoría </h5>
 						<ul class="sidebar-widget-list">
-							<li> <a href="#"> Vegan </a> </li>
-							<li> <a href="#"> Breakfast </a> </li>
-							<li> <a href="#"> Pizza </a> </li>
-							<li> <a href="#"> Salads</a> </li>
-							<li> <a href="#"> Drinks  </a> </li>
-							<li> <a href="#"> Bread </a> </li>
-							<li> <a href="#"> Lunch </a> </li>
-							<li> <a href="#"> Dinner </a> </li>
+							<li> <a href="#"> Veganas </a> </li>
+							<li> <a href="#"> Desaynos </a> </li>
+							<li> <a href="#"> Pizzas </a> </li>
+							<li> <a href="#"> Ensaladas</a> </li>
+							<li> <a href="#"> Tragas  </a> </li>
+							<li> <a href="#"> Panes </a> </li>
+							<li> <a href="#"> Almuerzos </a> </li>
+							<li> <a href="#"> Cenas </a> </li>
 						</ul>
 					</div>
 					<!-- Categories End -->
 
 					<!-- Popular Tags Start -->
 					<div class="sidebar-widget">
-						<h5 class="widget-title">Popular Tags</h5>
+						<h5 class="widget-title">Tags Más Vistas</h5>
 						<div class="tagcloud">
-							<a href="#">Health</a>
-							<a href="#">Food</a>
-							<a href="#">Ingredients</a>
-							<a href="#">Organic</a>
-							<a href="#">Farms</a>
+							<a href="#">Cookies</a>
+							<a href="#">Muffins</a>
+							<a href="#">Fácil</a>
+							<a href="#">Organico</a>
+							<a href="#">Pescados</a>
 							<a href="#">Green</a>
-							<a href="#">Fiber</a>
-							<a href="#">Supplements</a>
-							<a href="#">Gain</a>
-							<a href="#">Live Stock</a>
-							<a href="#">Harvest</a>
+							<a href="#">Fibra</a>
+							<a href="#">Rápida</a>
+							<a href="#">Sano</a>
 						</div>
 					</div>
 					<!-- Popular Tags End -->

@@ -1,0 +1,33 @@
+<!--
+See: https://metropolitanhost.com/themes/themeforest/html/trickly/recipe-grid.html
+-->
+
+<div class="section">
+	<div class="container">
+		<div class="row">
+			<table class="table table-striped">
+				<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Título</th>
+					<th scope="col"></th>
+				</tr>
+				</thead>
+				<tbody>
+				{{#each recipes}}
+					<tr>
+						<th scope="row">{{this.id}}</th>
+						<td>
+							<a href="{{this.url}}">{{this.title}}</a>
+						</td>
+						<td>
+							<a href="{{this.url_edit}}">Editar</a>
+						</td>
+					</tr>
+				{{/each}}
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+</div>

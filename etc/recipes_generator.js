@@ -1,13 +1,19 @@
 const envs = require('dotenv').config();
 const daoRecipes = require('../daos/dao_recipes');
+const utils = require('../utils/utils');
 
-async function createRecipes(quantity = 1) {
+async function createRecipes() {
+  const recipes = ['Galletitas de manteca', 'Torta de jamón y queso con masa batida',
+    'Muffins con chips de chocolate', 'Budin de banana', 'Pan casero en asadera con chimenea',
+    'Torta de vainilla esponjosa', 'Galletitas dulces sin azucar y sin TACC',
+    'Galletitas de maicena', 'Brownie sin TACC'];
   const promises = [];
-  for (let i = 0; i < quantity; i++) {
-    const title = `gen recipe ${Math.random()}`;
+  for (let i = 0; i < recipes.length; i++) {
+    const title = recipes[i];
+    const titleSeo = utils.dashString(title);
     const recipe = {
       title,
-      title_seo: 'from-test',
+      title_seo: titleSeo,
       description:
               'Lorem ipsum dolor sit amet consectetur adipiscing elit penatibus morbi tempor, nibh elementum class dapibus litora ridiculus pellentesque ut massa, faucibus nascetur ullamcorper aptent augue malesuada mus tempus velit. ',
       ingredients:

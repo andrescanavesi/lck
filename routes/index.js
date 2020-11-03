@@ -10,13 +10,7 @@ router.get('/', async (req, res, next) => {
     const responseJson = responseHelper.getResponseJson(req);
     responseJson.displayMoreRecipes = false;
 
-    const recipes = await daoRecipies.findAll();
-    // const recipesMostVisited = await daoRecipies.findRecipesMostVisited();
-    // responseJson.recipesMostVisited = recipesMostVisited;
-
-    if (!recipes) {
-      throw Error('No se han encontrado recetas');
-    }
+    const recipes = await daoRecipies.findWithLimit(9);
 
     responseJson.recipes = recipes;
     responseJson.isHomePage = true;
@@ -39,7 +33,7 @@ router.get('/receta/:titleSeo', async (req, res, next) => {
     responseJson.pageImage = recipe.featured_image_url;
     responseJson.pageDateModified = recipe.updated_at_friendly_2;
 
-    const recipes = await daoRecipies.findAll();
+    const recipes = await daoRecipies.findWithLimit(6);
     responseJson.relatedRecipes = recipes;
 
     res.render('recipe', responseJson);
@@ -48,4 +42,15 @@ router.get('/receta/:titleSeo', async (req, res, next) => {
   }
 });
 
+router.get('/videos', async (req, res, next) => {
+  try {
+    const responseJson = responseHelper.getResponseJson(req);
+    const recipes = await daoRecipies.findWithLimit(9);
+
+    responseJson.recipes = recipes;
+    res.render('videos', responseJson);
+  } catch (e) {
+    next(e);
+  }
+});
 module.exports = router;
