@@ -5,69 +5,31 @@ See: https://metropolitanhost.com/themes/themeforest/html/trickly/recipe-grid.ht
 <div class="section">
     <div class="container">
 	    <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <article class="metro_post metro_recipe">
-                    <div class="metro_post-thumb">
-                        <a href="recipe-details.html">
-                            <img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/recipes/1.jpg"
-                                 alt="recipe">
-                        </a>
-                    </div>
-                    <div class="metro_post-body">
-                        <div class="metro_post-desc">
-                            <span class="metro_post-meta"> <a href="#"> <i class="far fa-clock"></i> 45 Minutes </a> <a
-                                    href="recipe-details.html"> <i class="far fa-knife-kitchen"></i> Expert</a> </span>
-                            <h5><a href="recipe-details.html">Cheese Burger With a Touch of Curry and Cumin</a></h5>
-                            <p>Cras ultricies ligula sed magna dictum porta. Curabitur non nulla sit amet nisl tempus
-                                convallis quis ac lectus.</p>
-                        </div>
-                        <a class="btn-link" href="recipe-details.html"> Read More <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <article class="metro_post metro_recipe">
-                    <div class="metro_post-thumb">
-                        <a href="recipe-details.html">
-                            <img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/recipes/1.jpg"
-                                 alt="recipe">
-                        </a>
-                    </div>
-                    <div class="metro_post-body">
-                        <div class="metro_post-desc">
-                            <span class="metro_post-meta"> <a href="#"> <i class="far fa-clock"></i> 45 Minutes </a> <a
-                                    href="recipe-details.html"> <i class="far fa-knife-kitchen"></i> Expert</a> </span>
-                            <h5><a href="recipe-details.html">Cheese Burger With a Touch of Curry and Cumin</a></h5>
-                            <p>Cras ultricies ligula sed magna dictum porta. Curabitur non nulla sit amet nisl tempus
-                                convallis quis ac lectus.</p>
-                        </div>
-                        <a class="btn-link" href="recipe-details.html"> Read More <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <article class="metro_post metro_recipe">
-                    <div class="metro_post-thumb">
-                        <a href="recipe-details.html">
-                            <img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/recipes/1.jpg"
-                                 alt="recipe">
-                        </a>
-                    </div>
-                    <div class="metro_post-body">
-                        <div class="metro_post-desc">
-                            <span class="metro_post-meta"> <a href="#"> <i class="far fa-clock"></i> 45 Minutes </a> <a
-                                    href="recipe-details.html"> <i class="far fa-knife-kitchen"></i> Expert</a> </span>
-                            <h5><a href="recipe-details.html">Cheese Burger With a Touch of Curry and Cumin</a></h5>
-                            <p>Cras ultricies ligula sed magna dictum porta. Curabitur non nulla sit amet nisl tempus
-                                convallis quis ac lectus.</p>
-                        </div>
-                        <a class="btn-link" href="recipe-details.html"> Read More <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-            </div>
+			{{#each recipes}}
+				<div class="col-lg-4 col-md-6">
+					<article class="metro_post metro_recipe">
+						<div class="metro_post-thumb">
+							<a href="{{this.url}}">
+								<img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/recipes/1.jpg"
+								     alt="recipe">
+							</a>
+						</div>
+						<div class="metro_post-body">
+							<div class="metro_post-desc">
+			                            <span class="metro_post-meta"> <a href="#"> <i class="far fa-clock"></i> 45 Minutes </a> <a
+					                            href="recipe-details.html"> <i class="far fa-knife-kitchen"></i> Expert</a> </span>
+								<h5><a href="{{this.url}}">
+									{{this.title}}
+								</a></h5>
+								<p>Cras ultricies ligula sed magna dictum porta. Curabitur non nulla sit amet nisl tempus
+									convallis quis ac lectus.</p>
+							</div>
+							<a class="btn-link" href="{{this.url}}"> Leer más</i>
+							</a>
+						</div>
+					</article>
+				</div>
+			{{/each}}
         </div>
     </div>
 </div>

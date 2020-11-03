@@ -26,7 +26,7 @@ const indexRouter = require('./routes/index');
 
 const app = express();
 // app.use(compression());
-// app.use(useragent.express());
+app.use(useragent.express());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -65,7 +65,7 @@ function convertRecipe(row) {
   recipe.updated_at = moment(row.updated_at, enFormat);
   recipe.updated_at = recipe.updated_at.format(enFormat);
 
-  recipe.url = `${process.env.LCK_BASE_URL}/receta/${recipe.id}/${recipe.title_seo}`;
+  recipe.url = `${process.env.LCK_BASE_URL}/receta/${recipe.title_seo}`;
   recipe.url_edit = `${process.env.LCK_BASE_URL}/admin/receta/editar/${recipe.id}/`;
   recipe.active = row.active;
   recipe.notes = row.notes;
@@ -393,5 +393,21 @@ module.exports.findRandom = async function (limit) {
   return shuff.slice(0, limit - 1);
 };
 
+module.exports.findByTitleSeo = async function (titleSeo, witchCache = true) {
+  if (!titleSeo) {
+    throw Error('titleSeo param not defined');
+  }
+  const query = 'SELECT * FROM recipes WHERE active=true AND title_seo = $1 LIMIT 1';
+
+  const bindings = [titleSeo];
+  // log.info(sqlFormatter.format(query));
+  log.info(`findByTitleSeo, bindings: ${bindings}`);
+  const result = await dbHelper.query(query, bindings, witchCache);
+  if (result.rows.length > 0) {
+    const post = convertRecipe(result.rows[0]);
+    return post;
+  }
+  throw Error(`receta no encontrada ${titleSeo}`);
+};
 module.exports.findByIds = findByIds;
 module.exports.searchIndex = searchIndex;

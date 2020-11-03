@@ -5,7 +5,7 @@
 				<!-- Content  -->
 				<div class="metro_post-single-wrapper metro_recipe-single-wrapper">
 
-					<h2 class="entry-title">Planting Season Begins</h2>
+					<h2 class="entry-title">{{recipe.title}}</h2>
 					<div class="metro_rating-wrapper">
 						<div class="metro_rating">
 							<i class="fa fa-star active"></i>
@@ -96,78 +96,34 @@
 
 					<div class="metro_related-posts-slider">
 
-						<!-- Recipe Start -->
-						<article class="metro_post metro_recipe">
-							<div class="metro_post-thumb">
-								<a href="recipe-details.html">
-									<img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/recipes/1.jpg" alt="recipe">
-								</a>
-							</div>
-							<div class="metro_post-body">
-								<div class="metro_post-desc">
-									<span class="metro_post-meta"> <a href="#"> <i class="far fa-clock"></i> 45 Minutes </a> <a href="recipe-details.html"> <i class="far fa-knife-kitchen"></i> Expert</a> </span>
-									<h5> <a href="recipe-details.html">Cheese Burger With a Touch of Curry and Cumin</a> </h5>
-									<p>Cras ultricies ligula sed magna dictum porta. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
-								</div>
-								<a class="btn-link" href="recipe-details.html"> Read More <i class="fas fa-arrow-right"></i> </a>
-							</div>
-						</article>
-						<!-- Recipe End -->
+						<div class="container">
+							<div class="row">
 
-						<!-- Recipe Start -->
-						<article class="metro_post metro_recipe">
-							<div class="metro_post-thumb">
-								<a href="recipe-details.html">
-									<img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/recipes/2.jpg" alt="recipe">
-								</a>
+						{{#each relatedRecipes}}
+							<div class="col-lg-6 col-md-6">
+								<!-- Recipe Start -->
+								<article class="metro_post metro_recipe">
+									<div class="metro_post-thumb">
+										<a href="recipe-details.html">
+											<img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/recipes/1.jpg" alt="recipe">
+										</a>
+									</div>
+									<div class="metro_post-body">
+										<div class="metro_post-desc">
+											<span class="metro_post-meta"> <a href="#"> <i class="far fa-clock"></i> 45 Minutes </a> <a href="recipe-details.html"> <i class="far fa-knife-kitchen"></i> Expert</a> </span>
+											<h5> <a href="receta/{{this.title_seo}}">
+												{{this.title}}
+											</a> </h5>
+											<p>Cras ultricies ligula sed magna dictum porta. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
+										</div>
+										<a class="btn-link" href="recipe-details.html"> Read More <i class="fas fa-arrow-right"></i> </a>
+									</div>
+								</article>
+								<!-- Recipe End -->
 							</div>
-							<div class="metro_post-body">
-								<div class="metro_post-desc">
-									<span class="metro_post-meta"> <a href="#"> <i class="far fa-clock"></i> 45 Minutes </a> <a href="recipe-details.html"> <i class="far fa-knife-kitchen"></i> Expert</a> </span>
-									<h5> <a href="recipe-details.html">Cheese Burger With a Touch of Curry and Cumin</a> </h5>
-									<p>Cras ultricies ligula sed magna dictum porta. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
-								</div>
-								<a class="btn-link" href="recipe-details.html"> Read More <i class="fas fa-arrow-right"></i> </a>
+						{{/each}}
 							</div>
-						</article>
-						<!-- Recipe End -->
-
-						<!-- Recipe Start -->
-						<article class="metro_post metro_recipe">
-							<div class="metro_post-thumb">
-								<a href="recipe-details.html">
-									<img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/recipes/3.jpg" alt="recipe">
-								</a>
-							</div>
-							<div class="metro_post-body">
-								<div class="metro_post-desc">
-									<span class="metro_post-meta"> <a href="#"> <i class="far fa-clock"></i> 45 Minutes </a> <a href="recipe-details.html"> <i class="far fa-knife-kitchen"></i> Expert</a> </span>
-									<h5> <a href="recipe-details.html">Cheese Burger With a Touch of Curry and Cumin</a> </h5>
-									<p>Cras ultricies ligula sed magna dictum porta. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
-								</div>
-								<a class="btn-link" href="recipe-details.html"> Read More <i class="fas fa-arrow-right"></i> </a>
-							</div>
-						</article>
-						<!-- Recipe End -->
-
-						<!-- Recipe Start -->
-						<article class="metro_post metro_recipe">
-							<div class="metro_post-thumb">
-								<a href="recipe-details.html">
-									<img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/recipes/4.jpg" alt="recipe">
-								</a>
-							</div>
-							<div class="metro_post-body">
-								<div class="metro_post-desc">
-									<span class="metro_post-meta"> <a href="#"> <i class="far fa-clock"></i> 45 Minutes </a> <a href="recipe-details.html"> <i class="far fa-knife-kitchen"></i> Expert</a> </span>
-									<h5> <a href="recipe-details.html">Cheese Burger With a Touch of Curry and Cumin</a> </h5>
-									<p>Cras ultricies ligula sed magna dictum porta. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
-								</div>
-								<a class="btn-link" href="recipe-details.html"> Read More <i class="fas fa-arrow-right"></i> </a>
-							</div>
-						</article>
-						<!-- Recipe End -->
-
+						</div>
 					</div>
 
 				</div>
@@ -179,6 +135,22 @@
 			<!-- Sidebar Start -->
 			<div class="col-lg-4">
 				<div class="sidebar">
+
+					<!-- About author Start-->
+					<div class="sidebar-widget widget-about-author">
+						<div class="widget-about-author-inner">
+							<img src="/images/lck-logo.png" alt="author">
+							<h5>Martín Kesman</h5>
+							<p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Donec sollicitudin molestie malesuada. Mauris blandit aliquet elit</p>
+						</div>
+						<ul class="metro_sm">
+							<li> <a href="#"> <i class="fab fa-facebook-f"></i> </a> </li>
+							<li> <a href="#"> <i class="fab fa-twitter"></i> </a> </li>
+							<li> <a href="#"> <i class="fab fa-linkedin-in"></i> </a> </li>
+							<li> <a href="#"> <i class="fab fa-youtube"></i> </a> </li>
+						</ul>
+					</div>
+					<!-- About author End-->
 
 					<!-- Recent Posts Start -->
 					<div class="sidebar-widget widget-recent-posts">
