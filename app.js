@@ -1,8 +1,7 @@
 const envs = require('dotenv').config();
 
 if (envs.error) {
-  console.error(`error loading env vars. ${envs.error}`);
-  throw envs.error;
+  console.warn(`error loading env vars. ${envs.error}`);
 }
 console.info('env vars loaded');
 
