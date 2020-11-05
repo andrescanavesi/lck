@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "apicache": "^1.5.3",
+    "body-parser": "^1.19.0",
     "cloudinary": "^1.23.0",
     "compression": "^1.7.4",
     "cookie-parser": "~1.4.4",
+    "csurf": "^1.11.0",
     "csv-string": "^4.0.1",
     "debug": "^4.2.0",
     "dotenv": "^8.2.0",

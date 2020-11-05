@@ -66,8 +66,9 @@ function convertRecipe(row) {
   recipe.updated_at = recipe.updated_at.format(enFormat);
 
   recipe.url = `${process.env.LCK_BASE_URL}/receta/${recipe.title_seo}`;
-  recipe.url_edit = `${process.env.LCK_BASE_URL}/admin/receta/editar/${recipe.id}/`;
+  recipe.url_edit = `${process.env.LCK_BASE_URL}/admin/receta/editar/${recipe.id}`;
   recipe.active = row.active;
+  recipe.active_text = row.active ? 'sí' : 'no';
   recipe.notes = row.notes;
   recipe.has_notes = recipe.notes && recipe.notes.trim() !== '';
   recipe.youtube_video_id = row.youtube_video_id;
@@ -123,7 +124,34 @@ function convertRecipe(row) {
 
   return recipe;
 }
-
+module.exports.getRecipeDefaults = function () {
+  return {
+    id: 0,
+    title: 'test recipe ',
+    description: 'receta de prueba',
+    ingredients: 'ingr1\ningr2\ningr3\ningr4',
+    steps: 'step1\nstep2\nstep3\nstep4',
+    tags_csv: 'tag1,tag2,tag3',
+    active: true,
+    images_names_csv: process.env.LCK_DEFAULT_IMAGES_NAMES_CSV || 'recipe-default.jpg,recipe-default.jpg',
+    title_seo: '',
+    extra_ingredients_title: '',
+    extra_ingredients: '',
+    prep_time_seo: 'PT10M',
+    cook_time_seo: 'PT20M',
+    total_time_seo: 'PT30M',
+    prep_time: '10 minutos',
+    cook_time: '20 minutos',
+    total_time: '30 minutos',
+    cuisine: 'Criolla',
+    yield: '6 porciones',
+    tweets: 155,
+    notes: '',
+    youtube_video_id: '',
+    aggregate_rating: 4.3,
+    rating_count: 23,
+  };
+};
 module.exports.findWithLimit = async function (limit) {
   log.info(`findWithLimit, limit: ${limit}`);
   const query = 'SELECT * FROM recipes WHERE active=true ORDER BY created_at DESC LIMIT $1 ';
@@ -212,6 +240,8 @@ module.exports.create = async function (recipe) {
   // eslint-disable-next-line no-param-reassign
   recipe.title = recipe.title.charAt(0).toUpperCase() + recipe.title.toLowerCase().slice(1);
   log.info(`Creating recipe: ${recipe.title}`);
+  // eslint-disable-next-line no-param-reassign
+  recipe.title_seo = utils.dashString(recipe.title);
 
   const today = moment().format('YYYY-MM-DD HH:mm:ss');
   const query = `INSERT INTO recipes(
@@ -284,6 +314,10 @@ module.exports.create = async function (recipe) {
 module.exports.update = async function (recipe) {
   log.info('updating recipe...');
   const today = moment().format('YYYY-MM-DD HH:mm:ss');
+  // eslint-disable-next-line no-param-reassign
+  recipe.title = recipe.title.charAt(0).toUpperCase() + recipe.title.toLowerCase().slice(1);
+  // eslint-disable-next-line no-param-reassign
+  recipe.title_seo = utils.dashString(recipe.title);
   const query = `UPDATE recipes SET ingredients=$1, steps=$2, updated_at=$3, active=$4,
       extra_ingredients_title=$5, title=$6, description=$7, title_seo=$8, 
       prep_time_seo=$9, cook_time_seo=$10, total_time_seo=$11, 
