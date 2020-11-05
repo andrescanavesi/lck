@@ -95,15 +95,13 @@ router.post('/receta/editar/:id', parseForm, csrfProtection, basicAuth(authOptio
     recipe.steps = req.body.steps;
     recipe.tags_csv = req.body.tags;
 
-    let recipeId;
-    if (req.params.id === '0') recipeId = await daoRecipes.create(recipe);
-    else recipeId = await daoRecipes.update(recipe);
+    recipe.id = req.params.id;
+    if (recipe.id === '0') recipe.id = await daoRecipes.create(recipe);
+    else await daoRecipes.update(recipe);
 
-    const recipeStored = await daoRecipes.findById(recipeId, true, false);
+    const recipeStored = await daoRecipes.findById(recipe.id, true, false);
 
     res.redirect(recipeStored.url_edit);
-
-    res.redirect(recipe.url_edit);
   } catch (e) {
     next(e);
   }

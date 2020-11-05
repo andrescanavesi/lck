@@ -29,14 +29,14 @@ const pool = new Pool({
 
 /**
  *
- * @param {stirng} theQuery
+ * @param {string} theQuery
  * @param {[]]} bindings
  * @param {boolean} withCache true to cache the result
  * @return {Promise<*>}
  */
 async function query(theQuery, bindings, withCache) {
   if (withCache) {
-    log.info(`executing query with cache ${theQuery}`);
+    // log.info(`executing query with cache ${theQuery}`);
     const key = theQuery + JSON.stringify(bindings);
     const value = queryCache.get(key);
     if (value === undefined) {
@@ -49,13 +49,13 @@ async function query(theQuery, bindings, withCache) {
         throw new Error(`Error executing query with cache ${theQuery} error: ${error}`);
       }
     } else {
-      log.info(`returning query result from cache ${theQuery}`);
+      // log.info(`returning query result from cache ${theQuery}`);
       // log.info(queryCache.getStats());
       return value;
     }
   } else {
     try {
-      log.info(`executing query without cache ${theQuery}`);
+      // log.info(`executing query without cache ${theQuery}`);
       const result = await pool.query(theQuery, bindings);
 
       // delete all the cache content if we are inserting or updating data

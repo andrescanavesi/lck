@@ -202,7 +202,7 @@ module.exports.findById = async function (id, ignoreActive, witchCache = true) {
 
   const bindings = [id];
   // log.info(sqlFormatter.format(query));
-  log.info(`findById, bindings: ${bindings}`);
+  log.info(`findById, bindings: ${JSON.stringify(bindings)}`);
   const result = await dbHelper.query(query, bindings, witchCache);
   if (result.rows.length > 0) {
     const recipe = convertRecipe(result.rows[0]);
@@ -312,19 +312,36 @@ module.exports.create = async function (recipe) {
  * @param recipe
  */
 module.exports.update = async function (recipe) {
-  log.info('updating recipe...');
   const today = moment().format('YYYY-MM-DD HH:mm:ss');
   // eslint-disable-next-line no-param-reassign
   recipe.title = recipe.title.charAt(0).toUpperCase() + recipe.title.toLowerCase().slice(1);
   // eslint-disable-next-line no-param-reassign
   recipe.title_seo = utils.dashString(recipe.title);
-  const query = `UPDATE recipes SET ingredients=$1, steps=$2, updated_at=$3, active=$4,
-      extra_ingredients_title=$5, title=$6, description=$7, title_seo=$8, 
-      prep_time_seo=$9, cook_time_seo=$10, total_time_seo=$11, 
-     prep_time=$12, cook_time=$13, total_time=$14, cuisine=$15, yield=$16,
-     youtube_video_id=$17,notes=$18, 
-     extra_ingredients=$19,aggregate_rating=$20,rating_count=$21,images_names_csv=$22,
-     tags_csv=$23
+  log.info(`updating recipe ${recipe.title}`);
+  const query = `UPDATE recipes 
+        SET ingredients=$1, 
+        steps=$2,
+        updated_at=$3, 
+        active=$4,
+        extra_ingredients_title=$5, 
+        title=$6, 
+        description=$7, 
+        title_seo=$8, 
+        prep_time_seo=$9, 
+        cook_time_seo=$10, 
+        total_time_seo=$11, 
+        prep_time=$12,
+        cook_time=$13, 
+        total_time=$14, 
+        cuisine=$15, 
+        yield=$16,
+        youtube_video_id=$17,
+        notes=$18, 
+        extra_ingredients=$19,
+        aggregate_rating=$20,
+        rating_count=$21,
+        images_names_csv=$22,
+        tags_csv=$23
        WHERE id=$24`;
   const bindings = [
     recipe.ingredients,
@@ -353,7 +370,7 @@ module.exports.update = async function (recipe) {
     recipe.id,
   ];
     // log.info(sqlFormatter.format(query));
-    // log.info(bindings);
+  log.info(JSON.stringify(bindings));
   const result = await dbHelper.query(query, bindings, false);
   // log.info(result);
   await this.resetCache();
