@@ -12,8 +12,6 @@ const log = new Logger('dao_recipes');
 const preset = 'fast';
 const searchIndex = new FlexSearch(preset);
 
-let allRecipes = [];
-
 function convertRecipe(row) {
   const imageBase = process.env.LCK_IMAGES_BASE_URL;
   const featuredImageBase = imageBase;
@@ -154,12 +152,13 @@ module.exports.getRecipeDefaults = function () {
     rating_count: 23,
   };
 };
-module.exports.findWithLimit = async function (limit) {
+module.exports.findWithLimit = async function (limit, withCache = true, onlyActives = true) {
   log.info(`findWithLimit, limit: ${limit}`);
-  const query = 'SELECT * FROM recipes WHERE active=true ORDER BY created_at DESC LIMIT $1 ';
+  const activeCondition = onlyActives ? ' WHERE active=true ' : '';
+  const query = `SELECT * FROM recipes ${activeCondition} ORDER BY id DESC LIMIT $1 `;
   const bindings = [limit];
 
-  const result = await dbHelper.query(query, bindings, true);
+  const result = await dbHelper.query(query, bindings, withCache);
   log.info(`recipes: ${result.rows.length}`);
   const recipes = [];
   for (let i = 0; i < result.rows.length; i++) {
@@ -169,15 +168,11 @@ module.exports.findWithLimit = async function (limit) {
 };
 
 module.exports.resetCache = async function () {
-  allRecipes = [];
   await this.buildSearchIndex();
 };
 
-module.exports.findAll = async function () {
-  if (allRecipes.length === 0) {
-    allRecipes = this.findWithLimit(1000);
-  }
-  return allRecipes;
+module.exports.findAll = function (withCache = true, onlyActives = true) {
+  return this.findWithLimit(1000, withCache, onlyActives);
 };
 
 async function findWithTag(tag) {
@@ -188,19 +183,14 @@ async function findWithTag(tag) {
 /**
  *
  * @param {number} id
- * @param {boolean} ignoreActive true to find active true and false
+ * @param {boolean} onlyActive
  * @param {boolean} witchCache
  */
-module.exports.findById = async function (id, ignoreActive = true, witchCache = true) {
-  if (!id) {
-    throw Error('id param not defined');
-  }
-  let query;
-  if (ignoreActive === true) {
-    query = 'SELECT * FROM recipes WHERE id = $1 LIMIT 1';
-  } else {
-    query = 'SELECT * FROM recipes WHERE active=true AND id = $1 LIMIT 1';
-  }
+module.exports.findById = async function (id, onlyActive = true, witchCache = true) {
+  if (!id) throw Error('id param not defined');
+
+  const activeCondition = onlyActive ? 'active=true AND' : '';
+  const query = `SELECT * FROM recipes WHERE ${activeCondition} id = $1 LIMIT 1`;
 
   const bindings = [id];
   // log.info(sqlFormatter.format(query));
@@ -383,7 +373,7 @@ module.exports.buildSearchIndex = async function () {
   // console.time('buildIndexTook');
   log.info('building index...');
 
-  const all = await this.findAll();
+  const all = await this.findAll(false);
 
   const size = all.length;
   for (let i = 0; i < size; i++) {
@@ -426,7 +416,7 @@ module.exports.findRelated = async function (text) {
 
   if (results.length < 5) {
     log.info('not enough related recipes, result will filled up with more recipes');
-    const moreRecipes = await findWithLimit(20);
+    const moreRecipes = await findWithLimit(20, true);
     results = results.concat(moreRecipes);
   }
 
@@ -464,7 +454,7 @@ module.exports.findByTitleSeo = async function (titleSeo, witchCache = true) {
 };
 
 module.exports.addImage = async function (recipeId, imageName) {
-  const recipe = await this.findById(recipeId);
+  const recipe = await this.findById(recipeId, false, false);
   const images = recipe.images_names_csv ? recipe.images_names_csv.split(',') : [];
   images.unshift(imageName);
   const imagesNamesCsv = images.join(',');

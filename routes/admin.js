@@ -48,7 +48,7 @@ router.get('/', csrfProtection, basicAuth(authOptions), async (req, res, next) =
   try {
     const responseJson = responseHelper.getResponseJson(req);
     responseJson.csrfToken = req.csrfToken();
-    const recipes = await daoRecipes.findWithLimit(9);
+    const recipes = await daoRecipes.findAll(false, false);
 
     responseJson.recipes = recipes;
     responseJson.layout = 'layout-admin';
@@ -74,7 +74,7 @@ router.get('/receta/nueva', csrfProtection, basicAuth(authOptions), (req, res, n
 
 router.get('/receta/editar/:id', csrfProtection, basicAuth(authOptions), async (req, res, next) => {
   try {
-    const recipe = await daoRecipes.findById(req.params.id, true, false);
+    const recipe = await daoRecipes.findById(req.params.id, false, false);
     const responseJson = responseHelper.getResponseJson(req);
     responseJson.recipe = recipe;
     responseJson.csrfToken = req.csrfToken();
@@ -105,7 +105,7 @@ router.post('/receta/editar/:id', parseForm, csrfProtection, basicAuth(authOptio
     if (recipe.id === '0') recipe.id = await daoRecipes.create(recipe);
     else await daoRecipes.update(recipe);
 
-    const recipeStored = await daoRecipes.findById(recipe.id, true, false);
+    const recipeStored = await daoRecipes.findById(recipe.id, false, false);
 
     res.redirect(recipeStored.url_edit);
   } catch (e) {
@@ -120,7 +120,7 @@ router.post('/receta/imagen/:recipeId', basicAuth(authOptions), async (req, res,
     }
     const { recipeId } = req.params;
     const imageName = await cloudinaryHelper.uploadFile(req.files.image, recipeId);
-    const recipeStored = await daoRecipes.findById(recipeId, true, false);
+    const recipeStored = await daoRecipes.findById(recipeId, false, false);
     await daoRecipes.addImage(recipeId, imageName);
     res.redirect(recipeStored.url_edit);
   } catch (e) {

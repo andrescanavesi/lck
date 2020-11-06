@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => {
     const responseJson = responseHelper.getResponseJson(req);
     responseJson.displayMoreRecipes = false;
 
-    const recipes = await daoRecipies.findWithLimit(9);
+    const recipes = await daoRecipies.findWithLimit(18, true, true);
 
     responseJson.recipes = recipes;
     responseJson.isHomePage = true;
@@ -24,7 +24,7 @@ router.get('/', async (req, res, next) => {
 router.get('/receta/:titleSeo', async (req, res, next) => {
   try {
     // logger.info(`title seo: ${req.params.titleSeo}`);
-    const recipe = await daoRecipies.findByTitleSeo(req.params.titleSeo);
+    const recipe = await daoRecipies.findByTitleSeo(req.params.titleSeo, true);
     const responseJson = responseHelper.getResponseJson(req);
     responseJson.recipe = recipe;
     responseJson.title = recipe.title;
@@ -33,7 +33,7 @@ router.get('/receta/:titleSeo', async (req, res, next) => {
     responseJson.pageImage = recipe.featured_image_url;
     responseJson.pageDateModified = recipe.updated_at_friendly_2;
 
-    const recipes = await daoRecipies.findWithLimit(6);
+    const recipes = await daoRecipies.findWithLimit(6, true, true);
     responseJson.relatedRecipes = recipes;
 
     res.render('recipe', responseJson);
@@ -45,7 +45,7 @@ router.get('/receta/:titleSeo', async (req, res, next) => {
 router.get('/videos', async (req, res, next) => {
   try {
     const responseJson = responseHelper.getResponseJson(req);
-    const recipes = await daoRecipies.findWithLimit(9);
+    const recipes = await daoRecipies.findWithLimit(9, true, true);
 
     responseJson.recipes = recipes;
     res.render('videos', responseJson);

@@ -5,7 +5,18 @@ const NodeCache = require('node-cache');
 const { Logger } = require('./Logger');
 
 const log = new Logger('db_helper');
-const queryCache = new NodeCache();
+
+let cacheOptions;
+// stdTTL: the standard ttl as number in seconds for every generated cache element.
+// checkperiod: (default: 600) The period in seconds, as a number, used for the automatic delete check interval. 0 = no periodic check.
+// maxKeys: (default: -1) specifies a maximum amount of keys that can be stored in the cache. If a new item is set and the cache is full, an error is thrown and the key will not be saved in the cache. -1 disables the key limit.
+if (process.env.NODE_ENV !== 'production') {
+  cacheOptions = { stdTTL: 5, checkperiod: 5, maxKeys: 1000 };
+} else {
+  cacheOptions = { stdTTL: 60 * 60, checkperiod: 120, maxKeys: 1000 };
+}
+
+const queryCache = new NodeCache(cacheOptions);
 
 let ssl = null;
 let dbConfig;

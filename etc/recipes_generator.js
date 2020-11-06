@@ -35,7 +35,7 @@ async function createRecipes() {
       youtube_video_id: 'cEWz-iCSGsk',
       aggregate_rating: 4.1,
       rating_count: 97,
-      images_names_csv: 'img1,img2',
+      images_names_csv: 'recipe-default.png',
       tags_csv: 'a,b,c',
     };
     promises.push(daoRecipes.create(recipe));
