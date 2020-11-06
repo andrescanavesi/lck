@@ -15,23 +15,30 @@
 					          spellcheck="true">{{recipe.ingredients}}</textarea>
 				</div>
 				<div class="form-group">
+					<label class="form-check-label" for="extra_ingredients_title">Título otros ingredientes</label>
+					<input type="text" class="form-control" id="extra_ingredients_title" name="extra_ingredients_title"
+					       value="{{recipe.extra_ingredients_title}}" placeholder="Para el relleno">
+				</div>
+				<div class="form-group">
+					<label class="form-check-label" for="extra_ingredients">Otros ingredientes</label>
+					<textarea class="form-control" id="extra_ingredients" name="extra_ingredients" rows="5"
+					          spellcheck="true">{{recipe.extra_ingredients}}</textarea>
+				</div>
+				<div class="form-group">
 					<label class="form-check-label" for="steps">Elaboración</label>
 					<textarea class="form-control" id="steps" name="steps" rows="10"
 					          spellcheck="true">{{recipe.steps}}</textarea>
+				</div>
+				<div class="form-group">
+					<label class="form-check-label" for="notes">Notas / Sugerencias</label>
+					<textarea class="form-control" id="notes" name="notes" rows="2"
+					          spellcheck="true">{{recipe.notes}}</textarea>
 				</div>
 				<div class="form-group">
 					<label class="form-check-label" for="tags">Tags</label>
 					<input type="text" class="form-control" id="tags" name="tags"
 					       value="{{recipe.tags_csv}}" placeholder="ej: dulces, faciles, galletitas">
 				</div>
-
-				<div class="form-group">
-					<label class="form-check-label" for="tags">Imágenes</label>
-					<input type="text" class="form-control" id="image_names_csv" name="image_names_csv"
-					       value="{{recipe.image_names_csv}}">
-				</div>
-
-
 
 				<div class="form-group">
 					<label class="form-check-label" for="youtube_video_id">Youtube video id</label>

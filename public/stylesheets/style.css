@@ -9,3 +9,15 @@
 .my-bg-dark{
     background-color: #222222;
 }
+
+.steps-list{
+    list-style: decimal !important;
+}
+
+.ingredients-list{
+    list-style: disc !important;
+}
+
+.share-icon {
+    width: 32px;
+}

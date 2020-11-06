@@ -9,7 +9,8 @@ let staticResources = null;
 module.exports.getResponseJson = function (req) {
   // default attributes for the response response.
   const responseJson = {};
-  responseJson.title = 'La Cocina de Kesman | LCK';
+  responseJson.title = 'La Cocina de Kesman | Recetas';
+  responseJson.description = 'La Cocina de Kesman';
   responseJson.today = moment().format('YYYY-MM-DD');
   responseJson.isProduction = process.env.NODE_ENV === 'production' || false;
   responseJson.adsenseEnabled = process.env.LCK_ADSENSE_ENABLED || false;
@@ -19,12 +20,13 @@ module.exports.getResponseJson = function (req) {
   responseJson.createdAt = moment().format('YYYY-MM-DD');
   responseJson.updatedAt = moment().format('YYYY-MM-DD');
   responseJson.linkToThisPage = process.env.LCK_BASE_URL || 'http://localhost:3000';
-  responseJson.description = 'lck';
-  responseJson.metaImage = 'TBD';
-  responseJson.keywords = 'TBD';
+  responseJson.description = 'La Cocina de Kesman';
+  responseJson.metaImage = '/images/lck-logo-256.png';
+  responseJson.keywords = 'recetas,cocina,kesman';
   responseJson.recipesSpotlight = [];
   responseJson.recipesMostVisited = [];
   responseJson.footerRecipes = [];
+  responseJson.latestRecipes = [];
   responseJson.searchText = '';
 
   const metaCache = process.env.LCK_META_CACHE || '1'; // in seconds
@@ -36,11 +38,11 @@ module.exports.getResponseJson = function (req) {
 
   // structured data
   responseJson.pageType = 'Website';
-  responseJson.pageName = 'lck';
-  responseJson.pageOrganization = 'lck';
+  responseJson.pageName = 'La Cocina de Kesman';
+  responseJson.pageOrganization = 'La Cocina de Kesman';
   responseJson.pageImage = process.env.LCK_DEFAULT_IMAGE_URL;
   responseJson.pageUrl = process.env.LCK_BASE_URL;
-  responseJson.pageDatePublished = '2020-11-02';
+  responseJson.pageDatePublished = '2020-11-10';
   responseJson.pageDateModified = moment().format('YYYY-MM-DD');// today
   responseJson.pageLogo = process.env.LCK_FAV_ICON_URL;
   responseJson.pageDescription = responseJson.description;

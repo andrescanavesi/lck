@@ -11,10 +11,12 @@ module.exports.isEmailvalid = function (email) {
 /**
  *
  * @param {String} string example: Double Layer Chocolate Peanut Butter Pie
- * @returns double-layer-chocolate-peanut-butter-Pie
+ * @returns {String} double-layer-chocolate-peanut-butter-Pie
  */
 module.exports.dashString = function (string) {
+  if (!string) return string;
   return string
+    .trim()
     .toLowerCase()
     .replace('ñ', 'n')
     .replace(/[^\w ]+/g, '')

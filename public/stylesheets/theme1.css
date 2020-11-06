@@ -4320,7 +4320,7 @@ td.remove{
     margin: 0;
 }
 .metro_ingredients li{
-    display: flex;
+    /*display: flex;*/
     align-items: center;
     justify-content: space-between;
 }

@@ -4,6 +4,7 @@
 					<th scope="col" width="20">#</th>
 					<th scope="col">Receta</th>
 					<th scope="col">Activa</th>
+					<th scope="col">Foto destacada</th>
 					<th scope="col"></th>
 				</tr>
 				</thead>
@@ -16,6 +17,9 @@
 						</td>
 						<td>
 							{{this.active_text}}
+						</td>
+						<td>
+							<img src="{{this.featured_image_url}}" alt="foto receta" width="100" />
 						</td>
 						<td>
 							<a href="{{this.url_edit}}">Editar</a>

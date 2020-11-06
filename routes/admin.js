@@ -99,7 +99,10 @@ router.post('/receta/editar/:id', parseForm, csrfProtection, basicAuth(authOptio
     recipe.ingredients = req.body.ingredients;
     recipe.steps = req.body.steps;
     recipe.tags_csv = req.body.tags;
+    recipe.extra_ingredients_title = req.body.extra_ingredients_title;
+    recipe.extra_ingredients = req.body.extra_ingredients;
     recipe.youtube_video_id = req.body.youtube_video_id;
+    recipe.notes = req.body.notes;
 
     recipe.id = req.params.id;
     if (recipe.id === '0') recipe.id = await daoRecipes.create(recipe);

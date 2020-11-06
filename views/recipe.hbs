@@ -1,3 +1,48 @@
+<script async="async" defer="true" charset="UTF-8" type="application/ld+json">
+          {
+          "@context":"http://schema.org",
+          "@type": "Recipe",
+          "name":"{{recipe.title}}",
+          "description": "{{recipe.description}}",
+          "image": "{{recipe.featured_image_url}}",
+          "url": "{{recipe.linkToThisPage}}",
+          "headline": "{{recipe.title}}",
+          "recipeIngredient": {{pageRecipeIngredients}},
+          "recipeInstructions": {{pageRecipeInstructions}},
+          "recipeCategory": "{{pageRecipeCategory}}",
+          "prepTime":"{{pageRecipePrepTime}}",
+          "cookTime":"{{pageRecipeCookTime}}",
+          "totalTime":"{{pageRecipeTotalTime}}",
+          "recipeCuisine":"{{pageRecipeCusine}}",
+          "recipeYield":"{{pageRecipeYield}}",
+          "video":"{{pageRecipeVideo}}",
+          "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "{{aggregateRating}}",
+              "ratingCount": "{{ratingCount}}"
+          },
+          "dateCreated": "{{recipe.created_at_friendly_2}}",
+          "datePublished": "{{recipe.created_at_friendly_2}}",
+          "dateModified": "{{recipe.updated_at_friendly_2}}",
+          "inLanguage": "es-ES",
+          "author": {
+            "@type": "Person",
+            "name": "Martín Kesman",
+            "url": "https://www.lacocinadekesman.com"
+          },
+          "mainEntityOfPage": "True",
+          "keywords": "{{recipe.tags_csv}}",
+          "articleBody": "{{recipe.description}}",
+          "publisher": {
+            "@type": "Organization",
+            "name": "La Cocina de Kesman"
+           }
+        }
+
+</script>
+
+
+
 <div class="section metro_post-single">
 	<div class="container">
 		<div class="row">
@@ -6,19 +51,54 @@
 				<div class="metro_post-single-wrapper metro_recipe-single-wrapper">
 
 					<h2 class="entry-title">{{recipe.title}}</h2>
-					<div class="metro_rating-wrapper">
-						<div class="metro_rating">
-							<img src="/images/icons/png/star.png" alt="star" width="16" />
-							<img src="/images/icons/png/star.png" alt="star" width="16"/>
-							<img src="/images/icons/png/star.png" alt="star" width="16"/>
-							<img src="/images/icons/png/star.png" alt="star" width="16"/>
+
+					<div class="d-flex justify-content-between">
+						<div class="metro_rating-wrapper">
+							<div class="metro_rating">
+								<img class="lozad" data-src="/images/icons/png/star.png" alt="star" width="16" />
+								<img class="lozad" data-src="/images/icons/png/star.png" alt="star" width="16"/>
+								<img class="lozad" data-src="/images/icons/png/star.png" alt="star" width="16"/>
+								<img class="lozad" data-src="/images/icons/png/star.png" alt="star" width="16"/>
+								<img class="lozad" data-src="/images/icons/png/star.png" alt="star" width="16"/>
+							</div>
+							<span>5 Estrellas</span>
+
+
 						</div>
-						<span>4 Estrellas</span>
+
+						<!--social icons for sharing-->
+						<div class="ml-1 mb-2">
+							<a class="ml-2" id="whastappShare" data-pin-do="buttonWhatsapp"
+							   href="{{recipe.whatsappSharingUrl}}"
+							   onclick="trackEvent(this,'social_whatsapp')">
+								<img class="share-icon"
+								     src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDEyOCAxMjgiIGlkPSJTb2NpYWxfSWNvbnMiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDEyOCAxMjgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxnIGlkPSJfeDM2X19zdHJva2UiPjxnIGlkPSJXaGF0c0FwcCI+PHJlY3QgY2xpcC1ydWxlPSJldmVub2RkIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGhlaWdodD0iMTI4IiB3aWR0aD0iMTI4Ii8+PHBhdGggY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNNDYuMTE0LDMyLjUwOSAgICBjLTEuMjQxLTIuOTcyLTIuMTgyLTMuMDg1LTQuMDYyLTMuMTYxYy0wLjY0LTAuMDM3LTEuMzUzLTAuMDc0LTIuMTQ0LTAuMDc0Yy0yLjQ0NiwwLTUuMDAzLDAuNzE1LTYuNTQ2LDIuMjk1ICAgIGMtMS44OCwxLjkxOS02LjU0NSw2LjM5Ni02LjU0NSwxNS41NzZjMCw5LjE4MSw2LjY5NSwxOC4wNiw3LjU5OCwxOS4zMDNjMC45NDEsMS4yNCwxMy4wNTMsMjAuMzU0LDMxLjg2LDI4LjE0NCAgICBjMTQuNzA3LDYuMDk1LDE5LjA3MSw1LjUzLDIyLjQxOCw0LjgxNmM0Ljg5LTEuMDUzLDExLjAyMS00LjY2NywxMi41NjQtOS4wM2MxLjU0Mi00LjM2NSwxLjU0Mi04LjA5LDEuMDktOC44OCAgICBjLTAuNDUxLTAuNzktMS42OTMtMS4yNC0zLjU3My0yLjE4MmMtMS44OC0wLjk0MS0xMS4wMjEtNS40NTYtMTIuNzUxLTYuMDU4Yy0xLjY5My0wLjYzOS0zLjMxLTAuNDEzLTQuNTg4LDEuMzkzICAgIGMtMS44MDYsMi41MjEtMy41NzMsNS4wOC01LjAwMyw2LjYyMmMtMS4xMjgsMS4yMDQtMi45NzIsMS4zNTUtNC41MTQsMC43MTVjLTIuMDY5LTAuODY0LTcuODYxLTIuODk4LTE1LjAwOC05LjI1NiAgICBjLTUuNTMtNC45MjgtOS4yOTEtMTEuMDYtMTAuMzgxLTEyLjkwNGMtMS4wOTEtMS44ODEtMC4xMTMtMi45NzMsMC43NTItMy45ODhjMC45NDEtMS4xNjcsMS44NDMtMS45OTQsMi43ODMtMy4wODYgICAgYzAuOTQxLTEuMDkxLDEuNDY3LTEuNjU1LDIuMDY5LTIuOTM1YzAuNjQtMS4yNDEsMC4xODgtMi41MjEtMC4yNjMtMy40NjJDNTEuNDE4LDQ1LjQxNCw0Ny42NTcsMzYuMjMzLDQ2LjExNCwzMi41MDl6IE02My45ODEsMCAgICBDMjguNjk5LDAsMCwyOC43MDcsMCw2My45OTljMCwxMy45OTYsNC41MTQsMjYuOTc3LDEyLjE4NywzNy41MTJMNC4yMTIsMTI1LjI5bDI0LjYtNy44NjJDMzguOTMsMTI0LjEyNSw1MS4wMDQsMTI4LDY0LjAxOSwxMjggICAgQzk5LjMwMSwxMjgsMTI4LDk5LjI5MSwxMjgsNjQuMDAxYzAtMzUuMjkyLTI4LjY5OS02My45OTktNjMuOTgxLTYzLjk5OWgtMC4wMzdWMHoiIGZpbGw9IiM2N0MxNUUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgaWQ9IldoYXRzQXBwXzFfIi8+PC9nPjwvZz48L3N2Zz4=">
+							</a>
+							<a class="ml-2" id="pinterestShare" data-pin-do="buttonPin"
+							   href="{{recipe.pinterestSharingUrl}}"
+							   onclick="trackEvent(this,'social_pinterest')">
+								<img class="share-icon" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMC8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvVFIvMjAwMS9SRUMtU1ZHLTIwMDEwOTA0L0RURC9zdmcxMC5kdGQnPjxzdmcgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMzIgMzIiIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHZlcnNpb249IjEuMCIgdmlld0JveD0iMCAwIDMyIDMyIiB3aWR0aD0iMzJweCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PHBhdGggZD0iTTE1Ljk5NiwwLjAwN0M3LjE2MiwwLjAwNywwLDcuMTY4LDAsMTYuMDA0YzAsNi41NTEsMy45MzgsMTIuMTc3LDkuNTc1LDE0LjY1ICBjLTAuMDQ1LTEuMTE4LTAuMDA4LTIuNDU5LDAuMjc4LTMuNjcyYzAuMzA4LTEuMzAxLDIuMDU4LTguNzE5LDIuMDU4LTguNzE5cy0wLjUxMi0xLjAyMS0wLjUxMi0yLjUyOSAgYzAtMi4zNjksMS4zNzYtNC4xNCwzLjA4Ny00LjE0YzEuNDU0LDAsMi4xNTcsMS4wOTEsMi4xNTcsMi40YzAsMS40NjItMC45MzQsMy42NS0xLjQxMiw1LjY3NmMtMC40MDEsMS42OTYsMC44NTIsMy4wOCwyLjUyMiwzLjA4ICBjMy4wMzEsMCw1LjA3Mi0zLjg5MSw1LjA3Mi04LjUwNGMwLTMuNTA1LTIuMzYxLTYuMTI4LTYuNjU1LTYuMTI4Yy00Ljg1MiwwLTcuODc0LDMuNjE3LTcuODc0LDcuNjU5ICBjMCwxLjM5NCwwLjQxMSwyLjM3NywxLjA1NCwzLjEzOGMwLjI5NywwLjM1LDAuMzM4LDAuNDg5LDAuMjI5LDAuODkxYy0wLjA3NCwwLjI5Ni0wLjI1LDEuMDAzLTAuMzI0LDEuMjgzICBjLTAuMTA3LDAuNDA3LTAuNDM0LDAuNTUxLTAuODAxLDAuNGMtMi4yMzUtMC45MS0zLjI3NS0zLjM1OC0zLjI3NS02LjExYzAtNC41NDMsMy44MzEtOS45OTMsMTEuNDMzLTkuOTkzICBjNi4xMDYsMCwxMC4xMjgsNC40MiwxMC4xMjgsOS4xNjRjMCw2LjI3NS0zLjQ5MSwxMC45NjMtOC42MzMsMTAuOTYzYy0xLjcyOCwwLTMuMzUzLTAuOTM0LTMuOTA3LTEuOTkyYzAsMC0wLjkzLDMuNjg2LTEuMTI1LDQuMzk2ICBjLTAuMzQsMS4yMzEtMS4wMDQsMi40NjYtMS42MSwzLjQyN0MxMi45MDEsMzEuNzY5LDE0LjQyMSwzMiwxNS45OTYsMzJjOC44MzQsMCwxNS45OTUtNy4xNiwxNS45OTUtMTUuOTk2ICBTMjQuODMsMC4wMDcsMTUuOTk2LDAuMDA3eiIgZmlsbD0iI0NBMjAyOCIvPjxnLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjwvc3ZnPg==">
+							</a>
+							<a class="ml-2" id="facebookShare" data-pin-do="buttonFacebook"
+							   href="{{recipe.facebookSharingUrl}}"
+							   onclick="trackEvent(this,'social_facebook')">
+								<img class="share-icon" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMTAwJSIgc3R5bGU9ImZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgd2lkdGg9IjEwMCUiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c2VyaWY9Imh0dHA6Ly93d3cuc2VyaWYuY29tLyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxnPjxwYXRoIGQ9Ik01MTIsMjU2YzAsLTE0MS4zODUgLTExNC42MTUsLTI1NiAtMjU2LC0yNTZjLTE0MS4zODUsMCAtMjU2LDExNC42MTUgLTI1NiwyNTZjMCwxMjcuNzc3IDkzLjYxNiwyMzMuNjg1IDIxNiwyNTIuODlsMCwtMTc4Ljg5bC02NSwwbDAsLTc0bDY1LDBsMCwtNTYuNGMwLC02NC4xNiAzOC4yMTksLTk5LjYgOTYuNjk1LC05OS42YzI4LjAwOSwwIDU3LjMwNSw1IDU3LjMwNSw1bDAsNjNsLTMyLjI4MSwwYy0zMS44MDEsMCAtNDEuNzE5LDE5LjczMyAtNDEuNzE5LDM5Ljk3OGwwLDQ4LjAyMmw3MSwwbC0xMS4zNSw3NGwtNTkuNjUsMGwwLDE3OC44OWMxMjIuMzg1LC0xOS4yMDUgMjE2LC0xMjUuMTEzIDIxNiwtMjUyLjg5WiIgc3R5bGU9ImZpbGw6IzE4NzdmMjtmaWxsLXJ1bGU6bm9uemVybzsiLz48cGF0aCBkPSJNMzU1LjY1LDMzMGwxMS4zNSwtNzRsLTcxLDBsMCwtNDguMDIyYzAsLTIwLjI0NSA5LjkxNywtMzkuOTc4IDQxLjcxOSwtMzkuOTc4bDMyLjI4MSwwbDAsLTYzYzAsMCAtMjkuMjk3LC01IC01Ny4zMDUsLTVjLTU4LjQ3NiwwIC05Ni42OTUsMzUuNDQgLTk2LjY5NSw5OS42bDAsNTYuNGwtNjUsMGwwLDc0bDY1LDBsMCwxNzguODljMTMuMDMzLDIuMDQ1IDI2LjM5MiwzLjExIDQwLDMuMTFjMTMuNjA4LDAgMjYuOTY2LC0xLjA2NSA0MCwtMy4xMWwwLC0xNzguODlsNTkuNjUsMFoiIHN0eWxlPSJmaWxsOiNmZmY7ZmlsbC1ydWxlOm5vbnplcm87Ii8+PC9nPjwvc3ZnPg==">
+							</a>
+
+							<a class="ml-2" id="twitterShare" data-pin-do="buttonTwitter"
+							   href="{{recipe.twitterSharingUrl}}"
+							   onclick="trackEvent(this,'social_twitter')">
+								<img class="share-icon" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMC8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvVFIvMjAwMS9SRUMtU1ZHLTIwMDEwOTA0L0RURC9zdmcxMC5kdGQnPjxzdmcgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMzIgMzIiIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHZlcnNpb249IjEuMCIgdmlld0JveD0iMCAwIDMyIDMyIiB3aWR0aD0iMzJweCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PHBhdGggZD0iTTMxLjk5Myw2LjA3N0MzMC44MTYsNi42LDI5LjU1Miw2Ljk1MywyOC4yMjMsNy4xMWMxLjM1NS0wLjgxMiwyLjM5Ni0yLjA5OCwyLjg4Ny0zLjYzICBjLTEuMjY5LDAuNzUxLTIuNjczLDEuMjk5LTQuMTY4LDEuNTkyQzI1Ljc0NCwzLjc5NywyNC4wMzgsMywyMi4xNDksM2MtMy42MjUsMC02LjU2MiwyLjkzOC02LjU2Miw2LjU2MyAgYzAsMC41MTQsMC4wNTcsMS4wMTYsMC4xNjksMS40OTZDMTAuMzAxLDEwLjc4NSw1LjQ2NSw4LjE3MiwyLjIyNyw0LjIwMWMtMC41NjQsMC45Ny0wLjg4OCwyLjA5Ny0wLjg4OCwzLjMgIGMwLDIuMjc4LDEuMTU5LDQuMjg2LDIuOTE5LDUuNDY0Yy0xLjA3NS0wLjAzNS0yLjA4Ny0wLjMyOS0yLjk3Mi0wLjgyMWMtMC4wMDEsMC4wMjctMC4wMDEsMC4wNTYtMC4wMDEsMC4wODIgIGMwLDMuMTgxLDIuMjYyLDUuODM0LDUuMjY1LDYuNDM3Yy0wLjU1LDAuMTQ5LTEuMTMsMC4yMy0xLjcyOSwwLjIzYy0wLjQyNCwwLTAuODM0LTAuMDQxLTEuMjM0LTAuMTE3ICBjMC44MzQsMi42MDYsMy4yNTksNC41MDQsNi4xMyw0LjU1OGMtMi4yNDUsMS43Ni01LjA3NSwyLjgxMS04LjE1LDIuODExYy0wLjUzLDAtMS4wNTMtMC4wMzEtMS41NjYtMC4wOTIgIEMyLjkwNSwyNy45MTMsNi4zNTUsMjksMTAuMDYyLDI5YzEyLjA3MiwwLDE4LjY3NS0xMC4wMDEsMTguNjc1LTE4LjY3NWMwLTAuMjg0LTAuMDA4LTAuNTY4LTAuMDItMC44NSAgQzMwLDguNTUsMzEuMTEyLDcuMzk1LDMxLjk5Myw2LjA3N3oiIGZpbGw9IiM1NUFDRUUiLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjxnLz48L3N2Zz4=">
+							</a>
+
+						</div>
+
+
 					</div>
 
 					<div class="metro_post-single-thumb">
-						<img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/recipe/1.jpg" alt="post">
-						<div class="metro_post-date">
+						<img class="lozad" data-src="{{recipe.featured_image_url}}" alt="foto receta">
+						<div class="metro_post-date d-none">
 							<span>25</span>
 							<span>Dic</span>
 						</div>
@@ -26,66 +106,69 @@
 
 					<!-- Entry Content Start -->
 					<div class="entry-content">
-              <span class="metro_post-meta">
-                <a href="#"> <i class="far fa-user"></i> By Martín </a>
-                <a href="#"> <i class="far fa-clock"></i> 55 minutos</a>
-	            <a href="#"> <i class="far fa-clock"></i> Avanzado</a>
-              </span>
+						<span class="metro_post-meta">
+							<i class="far fa-user"></i> By Martín
+							<i class="far fa-clock"></i> {{recipe.total_time}}
+							<span class="d-none"><a href="#"> <i class="far fa-clock"></i> Avanzado</a></span>
+						</span>
 
-						<p>
-							Cras ultricies ligula sed magna dictum porta. Cras ultricies ligula sed magna dictum porta. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-							Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada.
-							Cras ultricies ligula sed magna dictum porta. Donec rutrum congue leo eget malesuada.
-							Cras ultricies ligula sed magna dictum porta. Cras ultricies ligula sed magna dictum porta. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-							Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada.
-							Cras ultricies ligula sed magna dictum porta. Donec rutrum congue leo eget malesuada.
-						</p>
+						<p>{{recipe.description}}</p>
 
 						<div class="row">
 							<div class="col-lg-6">
-								<div class="metro_nutritional-facts">
+								<div class="metro_ingredients">
 									<h4>Ingredientes</h4>
-									<ul>
-										<li> 50 gramos de manteca </li>
-										<li> 1 y 1/2 taza de harina </li>
-										<li> 1 huevo </li>
-										<li> 1 cucharadita de polvo de hornear </li>
-										<li> 1 cucharadita de vainilla </li>
+									<ul class="ingredients-list">
+										{{#each recipe.ingredients_array}}
+											<li>{{this}} </li>
+										{{/each}}
 									</ul>
+									{{#if recipe.has_extra_ingredients}}
+										<h5 class="mt-3">{{recipe.extra_ingredients_title}}</h5>
+										<ul class="ingredients-list">
+											{{#each recipe.extra_ingredients_array}}
+												<li>{{this}}</li>
+											{{/each}}
+										</ul>
+									{{/if}}
+
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="metro_ingredients">
 									<h4>Elaboración</h4>
-									<ul>
-										<li> Derretir la manteca y dejar enfriar</li>
-										<li> En un recipiente coocar el huevo, la manteca, el azucar y mezclar bien.</li>
-										<li> Colocar la vainilla</li>
-										<li> En un recipiente aparte mezclar el harina con el el polvo de hornear</li>
-										<li> Incorporar todos los ingredientes hasta formar una masa suave.</li>
-										<li> Llevar la masa a la heladera de 10 a 15 minutos.</li>
+									<ul class="steps-list">
+										{{#each recipe.steps_array}}
+											<li>{{this}} </li>
+										{{/each}}
 									</ul>
 								</div>
 							</div>
 						</div>
 
+						<p class="mb-3">{{recipe.notes}}</p>
+
 						<div class="row">
-							<div class="col-sm-6">
-								<img class="w-100" src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/recipe/2.jpg" alt="Recipe">
-							</div>
-							<div class="col-sm-6">
-								<img class="w-100" src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/recipe/3.jpg" alt="Recipe">
-							</div>
+							{{#each recipe.images_urls}}
+								<div class="col-sm-6">
+									<img class="lozad w-100" data-src="{{this}}" alt="Recipe">
+								</div>
+							{{/each}}
 						</div>
 
-						<p>
-							Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-							Ut enim ad minima veniam, quis nostruercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequat
-						</p>
 
-						<p class="text-center">
-							<iframe width="560" height="315" src="https://www.youtube.com/embed/cKQ7pxetOIM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-						</p>
+
+						{{#if recipe.has_youtube_video}}
+						<div class="embed-responsive embed-responsive-16by9">
+							<iframe class="embed-responsive-item"
+							        src="https://www.youtube.com/embed/{{recipe.youtube_video_id}}?rel=0"
+							        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							        allowfullscreen>
+
+							</iframe>
+						</div>
+						{{/if}}
+
 					</div>
 					<!-- Entry Content End -->
 
@@ -94,7 +177,7 @@
 				<!-- Related Posts -->
 				<div class="metro_related-posts">
 
-					<h4>Recetas relacionadas</h4>
+					<h4>Más recetas</h4>
 
 					<div class="metro_related-posts-slider">
 
@@ -107,20 +190,20 @@
 								<article class="metro_post metro_recipe">
 									<div class="metro_post-thumb">
 										<a href="{{this.url}}">
-											<img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/recipes/1.jpg" alt="recipe">
+											<img class="lozad" data-src="{{this.featured_image_url}}" alt="foto receta">
 										</a>
 									</div>
 									<div class="metro_post-body">
 										<div class="metro_post-desc">
 											<span class="metro_post-meta"> <a href="{{this.url}}">
-												<i class="far fa-clock"></i> 45 Minutos </a>
-												<a href="{{this.url}}">
+												<i class="far fa-clock"></i> {{this.total_time}} </a>
+												<a href="{{this.url}}" class="d-none">
 													<i class="far fa-knife-kitchen"></i> Avanzado</a>
 											</span>
 											<h5> <a href="{{this.url}}">
 												{{this.title}}
 											</a> </h5>
-											<p>Cras ultricies ligula sed magna dictum porta. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
+											<p>{{this.description}}</p>
 										</div>
 										<a class="btn-link" href="{{this.url}}"> Leer Más </a>
 									</div>
@@ -145,22 +228,22 @@
 					<!-- About author Start-->
 					<div class="sidebar-widget widget-about-author">
 						<div class="widget-about-author-inner">
-							<img src="/images/lck-logo.png" alt="author">
+							<img class="lozad" data-src="/images/lck-logo.png" alt="author">
 							<h5>Martín Kesman</h5>
 							<p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Donec sollicitudin molestie malesuada. Mauris blandit aliquet elit</p>
 						</div>
 						<ul class="metro_sm">
 							<li><a href="https://www.instagram.com/lacocinadekesman/" class="instagram1">
-								<img src="/images/icons/png/029-instagram.png" width="32"/>
+								<img class="lozad" data-src="/images/icons/png/029-instagram.png" width="32"/>
 							</a></li>
 							<li><a href="https://www.facebook.com/La-Cocina-De-Kesman-1628880720697771/" class="facebook1">
-								<img src="/images/icons/png/036-facebook.png" width="32"/>
+								<img class="lozad" data-src="/images/icons/png/036-facebook.png" width="32"/>
 							</a></li>
 							<li><a href="https://www.youtube.com/channel/UCWs6GwAuccOhLrryaAZd2Xw" class="youtube1">
-								<img src="/images/icons/png/001-youtube.png" width="32"/>
+								<img class="lozad" data-src="/images/icons/png/001-youtube.png" width="32"/>
 							</a></li>
 							<li><a href="https://twitter.com/mkesman" class="twitter1">
-								<img src="/images/icons/png/008-twitter.png" width="32"/>
+								<img class="lozad" data-src="/images/icons/png/008-twitter.png" width="32"/>
 							</a></li>
 						</ul>
 					</div>
@@ -169,34 +252,17 @@
 					<!-- Recent Posts Start -->
 					<div class="sidebar-widget widget-recent-posts">
 						<h5 class="widget-title">Recetas recientes</h5>
+						{{#each latestRecipes}}
 						<article class="post">
-							<a href="blog-details.html"><img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/blog/sm/1.jpg" alt="post"></a>
+							<a href="{{this.url}}">
+								<img class="lozad" data-src="{{this.featured_image_url}}" alt="receta"></a>
 							<div class="post-content">
-								<a href="#"> Hamburguesas </a>
-								<h6> <a href="#">Praesent sapien massa</a> </h6>
+								<a href="{{this.url}}"> {{this.title}} </a>
+								<h6> {{this.total_time}} </h6>
 							</div>
 						</article>
-						<article class="post">
-							<a href="blog-details.html"><img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/blog/sm/2.jpg" alt="post"></a>
-							<div class="post-content">
-								<a href="#"> Pizzas </a>
-								<h6> <a href="blog-details.html">Onvallis a pellentesque nec,</a> </h6>
-							</div>
-						</article>
-						<article class="post">
-							<a href="blog-details.html"><img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/blog/sm/3.jpg" alt="post"></a>
-							<div class="post-content">
-								<a href="#"> Burguers veganas </a>
-								<h6> <a href="#">Egestas non nisi. Donec</a> </h6>
-							</div>
-						</article>
-						<article class="post">
-							<a href="blog-details.html"><img src="https://metropolitanhost.com/themes/themeforest/html/trickly/assets/img/blog/sm/4.jpg" alt="post"></a>
-							<div class="post-content">
-								<a href="#"> Papas fritas </a>
-								<h6> <a href="#">Sollicitudin molestie malesuada</a> </h6>
-							</div>
-						</article>
+						{{/each}}
+
 					</div>
 					<!-- Recent Posts End -->
 
@@ -218,7 +284,7 @@
 
 					<!-- Popular Tags Start -->
 					<div class="sidebar-widget">
-						<h5 class="widget-title">Tags Más Vistas</h5>
+						<h5 class="widget-title">Tags más Vistas</h5>
 						<div class="tagcloud">
 							<a href="#">Cookies</a>
 							<a href="#">Muffins</a>

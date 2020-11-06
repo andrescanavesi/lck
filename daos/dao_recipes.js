@@ -61,9 +61,11 @@ function convertRecipe(row) {
   recipe.created_at = moment(row.created_at, enFormat);
   recipe.created_at = recipe.created_at.format(enFormat);
   recipe.created_at_es = `Publicada ${moment(row.created_at, enFormat).startOf('day').fromNow()}`;
+  recipe.created_at_friendly_2 = moment(row.created_at).format('YYYY-MM-DD');
 
   recipe.updated_at = moment(row.updated_at, enFormat);
   recipe.updated_at = recipe.updated_at.format(enFormat);
+  recipe.updated_at_friendly_2 = moment(row.updated_at).format('YYYY-MM-DD');
 
   recipe.url = `${process.env.LCK_BASE_URL}/receta/${recipe.title_seo}`;
   recipe.url_edit = `${process.env.LCK_BASE_URL}/admin/receta/editar/${recipe.id}`;
@@ -122,18 +124,20 @@ function convertRecipe(row) {
     recipe.images_urls = recipe.images_names_csv.split(',').map((image) => imageBase + image.trim());
   }
 
+  recipe.category = 'General'; // TODO
+
   return recipe;
 }
 module.exports.getRecipeDefaults = function () {
   return {
     id: 0,
-    title: 'test recipe ',
-    description: 'receta de prueba',
-    ingredients: 'ingr1\ningr2\ningr3\ningr4',
-    steps: 'step1\nstep2\nstep3\nstep4',
-    tags_csv: 'tag1,tag2,tag3',
+    title: '',
+    description: '',
+    ingredients: '',
+    steps: '',
+    tags_csv: '',
     active: true,
-    images_names_csv: process.env.LCK_DEFAULT_IMAGES_NAMES_CSV || 'recipe-default.jpg,recipe-default.jpg',
+    images_names_csv: '',
     title_seo: '',
     extra_ingredients_title: '',
     extra_ingredients: '',
@@ -143,13 +147,13 @@ module.exports.getRecipeDefaults = function () {
     prep_time: '10 minutos',
     cook_time: '20 minutos',
     total_time: '30 minutos',
-    cuisine: 'Criolla',
+    cuisine: 'Americana',
+    category: 'Meriendas',
     yield: '6 porciones',
-    tweets: 155,
     notes: '',
     youtube_video_id: '',
-    aggregate_rating: 4.3,
-    rating_count: 23,
+    aggregate_rating: 4.7,
+    rating_count: 43,
   };
 };
 module.exports.findWithLimit = async function (limit, withCache = true, onlyActives = true) {
@@ -332,9 +336,8 @@ module.exports.update = async function (recipe) {
         extra_ingredients=$19,
         aggregate_rating=$20,
         rating_count=$21,
-        images_names_csv=$22,
-        tags_csv=$23
-       WHERE id=$24`;
+        tags_csv=$22
+       WHERE id=$23`;
   const bindings = [
     recipe.ingredients,
     recipe.steps,
@@ -357,7 +360,6 @@ module.exports.update = async function (recipe) {
     recipe.extra_ingredients,
     recipe.aggregate_rating,
     recipe.rating_count,
-    recipe.images_names_csv,
     recipe.tags_csv,
     recipe.id,
   ];
