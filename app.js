@@ -72,7 +72,8 @@ app.use('/admin', adminRouter);
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  const showExtendedErrors = process.env.NODE_ENV !== 'production';
+  res.locals.error = showExtendedErrors ? err : {};
   if (req.app.get('env') === 'test') {
     log.error(err.message);
   } else {
