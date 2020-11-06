@@ -39,6 +39,8 @@ function convertRecipe(row) {
   recipe.thumbnail = thumbnailImageBase + featuredImageName;
   recipe.thumbnail200 = thumbnail200ImageBase + featuredImageName;
 
+  recipe.images_urls = imagesNames.map((image) => imageBase + image);
+
   recipe.ingredients = row.ingredients;
   // remove empty new lines with filter
   recipe.ingredients_array = row.ingredients.split('\n').filter((item) => item && item.length > 0 && item.trim() !== '');
@@ -189,7 +191,7 @@ async function findWithTag(tag) {
  * @param {boolean} ignoreActive true to find active true and false
  * @param {boolean} witchCache
  */
-module.exports.findById = async function (id, ignoreActive, witchCache = true) {
+module.exports.findById = async function (id, ignoreActive = true, witchCache = true) {
   if (!id) {
     throw Error('id param not defined');
   }
@@ -460,5 +462,16 @@ module.exports.findByTitleSeo = async function (titleSeo, witchCache = true) {
   }
   throw Error(`receta no encontrada ${titleSeo}`);
 };
+
+module.exports.addImage = async function (recipeId, imageName) {
+  const recipe = await this.findById(recipeId);
+  const images = recipe.images_names_csv ? recipe.images_names_csv.split(',') : [];
+  images.unshift(imageName);
+  const imagesNamesCsv = images.join(',');
+  const query = 'UPDATE recipes SET images_names_csv = $1 WHERE id = $2';
+  const bindings = [imagesNamesCsv, recipeId];
+  await dbHelper.query(query, bindings, false);
+};
+
 module.exports.findByIds = findByIds;
 module.exports.searchIndex = searchIndex;

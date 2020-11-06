@@ -25,6 +25,20 @@
 					       value="{{recipe.tags_csv}}" placeholder="ej: dulces, faciles, galletitas">
 				</div>
 
+				<div class="form-group">
+					<label class="form-check-label" for="tags">Imágenes</label>
+					<input type="text" class="form-control" id="image_names_csv" name="image_names_csv"
+					       value="{{recipe.image_names_csv}}">
+				</div>
+
+
+
+				<div class="form-group">
+					<label class="form-check-label" for="youtube_video_id">Youtube video id</label>
+					<input type="text" class="form-control" id="youtube_video_id" name="youtube_video_id"
+					       value="{{recipe.youtube_video_id}}">
+				</div>
+
 				<div class="form-group form-check">
 					<input type="checkbox" class="form-check-input" id="active" name="active" {{#if recipe.active}}checked{{/if}}>
 					<label class="form-check-label" for="active">Activa</label>
@@ -32,3 +46,35 @@
 				<button type="submit" class="btn btn-primary">Guardar</button>
 
 			</form>
+
+			<h5 class="card-title">Imágenes</h5>
+			<div class="card mb-5 p-3">
+					<form action="/admin/receta/imagen/{{recipe.id}}" method="POST" enctype="multipart/form-data">
+						<input type="hidden" name="_csrf" value="{{csrfTokenUpload}}">
+						<div class="form-group">
+							<input readonly type="text" class="form-control" id="images_names_csv" name="images_names_csv"
+							       value="{{recipe.images_names_csv}}">
+						</div>
+
+						<div class="form-group">
+								<label class="custom-file-label"
+								       style="margin-top: 65px; padding-left: 10px"
+								       for="image">Subir imágenes...</label>
+								<input type="file" class="custom-file-input" id="image" name="image">
+						</div>
+						<button type="submit" class="btn btn-primary">Subir</button>
+					</form>
+
+
+			</div>
+
+			<div class="container mt-2">
+				<div class="row">
+					{{#each recipe.images_urls}}
+						<div class="col-lg-4 col-md-6">
+							<img src="{{this}}" width="300">
+						</div>
+
+					{{/each}}
+				</div>
+			</div>

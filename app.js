@@ -10,6 +10,7 @@ const express = require('express');
 const favicon = require('express-favicon');
 const compression = require('compression');
 const useragent = require('express-useragent');
+const fileUpload = require('express-fileupload');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -26,6 +27,7 @@ const adminRouter = require('./routes/admin');
 const app = express();
 app.use(compression());
 app.use(useragent.express());
+app.use(fileUpload());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

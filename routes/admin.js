@@ -4,6 +4,11 @@ const csrf = require('csurf');
 const bodyParser = require('body-parser');
 const daoRecipes = require('../daos/dao_recipes');
 const responseHelper = require('../utils/response_helper');
+const cloudinaryHelper = require('../utils/cloudinary_helper');
+
+const { Logger } = require('../utils/Logger');
+
+const log = new Logger('router_admin');
 
 const router = express.Router();
 
@@ -94,6 +99,7 @@ router.post('/receta/editar/:id', parseForm, csrfProtection, basicAuth(authOptio
     recipe.ingredients = req.body.ingredients;
     recipe.steps = req.body.steps;
     recipe.tags_csv = req.body.tags;
+    recipe.youtube_video_id = req.body.youtube_video_id;
 
     recipe.id = req.params.id;
     if (recipe.id === '0') recipe.id = await daoRecipes.create(recipe);
@@ -101,6 +107,21 @@ router.post('/receta/editar/:id', parseForm, csrfProtection, basicAuth(authOptio
 
     const recipeStored = await daoRecipes.findById(recipe.id, true, false);
 
+    res.redirect(recipeStored.url_edit);
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.post('/receta/imagen/:recipeId', basicAuth(authOptions), async (req, res, next) => {
+  try {
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).send('No se ha seleccionado ninguna imagen');
+    }
+    const { recipeId } = req.params;
+    const imageName = await cloudinaryHelper.uploadFile(req.files.image, recipeId);
+    const recipeStored = await daoRecipes.findById(recipeId, true, false);
+    await daoRecipes.addImage(recipeId, imageName);
     res.redirect(recipeStored.url_edit);
   } catch (e) {
     next(e);
